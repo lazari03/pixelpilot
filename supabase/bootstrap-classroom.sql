@@ -1,13 +1,13 @@
--- Run setup.sql FIRST. Then edit the email addresses below and run this file
+-- Run setup.sql FIRST. Review the account assignments below and run this file
 -- in the Supabase SQL editor as the project owner. Accounts must already exist
 -- in Authentication > Users. This script never sets or changes passwords.
 begin;
 do $$
 declare
- teacher_email text := 'CHANGE_ME_TEACHER_EMAIL';
- student_email text := 'CHANGE_ME_STUDENT_EMAIL';
+ teacher_email text := 'fonsi1453@gmail.com';
+ student_email text := 'alfonsl1@live.com';
  -- Optional: your own owner account. Leave empty to create no superadmin.
- owner_email text := '';
+ owner_email text := 'alfonzlazri@gmail.com';
  classroom_name text := 'PixelPilot - Class 1';
  student_nickname text := 'Robot One';
  teacher_id uuid; student_id uuid; owner_id uuid; classroom_id uuid;

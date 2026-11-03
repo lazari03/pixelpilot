@@ -342,8 +342,22 @@ describe("teacher and student bootstrap", () => {
       `alter table auth.users add column email text;update auth.users set email='teacher@class.test' where id='${studentA}';update auth.users set email='student@class.test' where id='${studentB}';`,
     );
     const script = readFileSync("supabase/bootstrap-classroom.sql", "utf8")
-      .replaceAll("CHANGE_ME_TEACHER_EMAIL", "teacher@class.test")
-      .replaceAll("CHANGE_ME_STUDENT_EMAIL", "student@class.test");
+      .replace(
+        /teacher_email text := '[^']*'/,
+        "teacher_email text := 'teacher@class.test'",
+      )
+      .replace(
+        /student_email text := '[^']*'/,
+        "student_email text := 'student@class.test'",
+      )
+      .replace(
+        /owner_email text := '[^']*'/,
+        "owner_email text := 'owner@class.test'",
+      );
+    const ownerId = "33333333-3333-3333-3333-333333333333";
+    await db.exec(
+      `insert into auth.users(id,email) values ('${ownerId}','owner@class.test')`,
+    );
     await db.exec(script);
     await db.exec(script);
     expect(
@@ -352,6 +366,9 @@ describe("teacher and student bootstrap", () => {
     expect(
       (await asStudent(studentB, "select current_app_role() as role")).rows,
     ).toEqual([{ role: "student" }]);
+    expect(
+      (await asStudent(ownerId, "select current_app_role() as role")).rows,
+    ).toEqual([{ role: "superadmin" }]);
     const classroom = await db.query<{ id: string }>(
       "select id from classrooms where name='PixelPilot - Class 1'",
     );
