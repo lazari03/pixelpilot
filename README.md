@@ -56,3 +56,9 @@ Run `npm run db:seed:generate` after changing content; review and apply the gene
 - `npm run test:browser`: launches an isolated local Supabase-compatible PostgreSQL fixture and dev server. Tests auth, locales, prompting, workspace size, mobile layout and reduced motion. Uses `/usr/bin/chromium` or `CHROMIUM_PATH`. The fixture is test-only and is never imported by production code.
 
 Import the repository into Vercel, set both public variables, and deploy as Next.js. Apply `supabase/setup.sql`, create student accounts and classroom memberships, and test the live project before classroom use. Local database/HTTP-fixture tests do not establish live Supabase configuration. No AI API key is needed.
+
+## Teacher, student and owner roles
+
+After running `setup.sql`, edit and run `supabase/bootstrap-classroom.sql` in the project owner's SQL editor. Supply the emails of existing teacher/student Auth accounts; optionally supply your own owner email for `superadmin`. Leave owner email empty to create no superadmin. The script creates a classroom, assigns its teacher and enrolls the student with a nickname; it can be rerun without duplicating membership. It never changes passwords or grants PostgreSQL superuser access. Existing projects can apply `003_roles.sql` separately before the bootstrap.
+
+Roles are stored in `app_roles`, never in user-editable metadata. Students cannot self-promote. `teacher_classroom_roster(class_id)` provides an authorized roster/progress read for assigned teachers; superadmins can read any classroom. These roles establish database permissions; the current teacher screen is still a teaching guide, not a complete account-management dashboard. Account creation and role assignment remain owner-managed in Supabase.

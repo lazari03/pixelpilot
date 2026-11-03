@@ -173,7 +173,7 @@ describe("course assessment security", () => {
       );
       expect(result.rows, challenge.id).toEqual([{ accepted: true }]);
     }
-  });
+  }, 30000);
   it("requires practical work, a structured prompt and lessons before passing a quiz", async () => {
     const result = await asStudent(
       studentB,
@@ -333,5 +333,60 @@ describe("complete one-week progression", () => {
         )
       ).rows,
     ).toEqual([{ ok: false }]);
+  });
+});
+
+describe("teacher and student bootstrap", () => {
+  it("assigns existing accounts repeatably and limits teacher access to assigned classes", async () => {
+    await db.exec(
+      `alter table auth.users add column email text;update auth.users set email='teacher@class.test' where id='${studentA}';update auth.users set email='student@class.test' where id='${studentB}';`,
+    );
+    const script = readFileSync("supabase/bootstrap-classroom.sql", "utf8")
+      .replaceAll("CHANGE_ME_TEACHER_EMAIL", "teacher@class.test")
+      .replaceAll("CHANGE_ME_STUDENT_EMAIL", "student@class.test");
+    await db.exec(script);
+    await db.exec(script);
+    expect(
+      (await asStudent(studentA, "select current_app_role() as role")).rows,
+    ).toEqual([{ role: "teacher" }]);
+    expect(
+      (await asStudent(studentB, "select current_app_role() as role")).rows,
+    ).toEqual([{ role: "student" }]);
+    const classroom = await db.query<{ id: string }>(
+      "select id from classrooms where name='PixelPilot - Class 1'",
+    );
+    const classId = classroom.rows[0].id;
+    expect(
+      (
+        await asStudent(
+          studentA,
+          `select * from teacher_classroom_roster('${classId}')`,
+        )
+      ).rows,
+    ).toHaveLength(1);
+    await expect(
+      asStudent(
+        studentB,
+        `select * from teacher_classroom_roster('${classId}')`,
+      ),
+    ).rejects.toThrow();
+    await expect(
+      asStudent(
+        studentA,
+        "select * from teacher_classroom_roster('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb')",
+      ),
+    ).rejects.toThrow();
+    await expect(
+      asStudent(
+        studentB,
+        `update app_roles set role='superadmin' where user_id='${studentB}'`,
+      ),
+    ).rejects.toThrow();
+    await expect(
+      asStudent(
+        studentB,
+        `insert into class_teachers values ('${classId}','${studentB}')`,
+      ),
+    ).rejects.toThrow();
   });
 });

@@ -70,6 +70,7 @@ writeFileSync(
     "schema.sql",
     "001_learning.sql",
     "002_course.sql",
+    "003_roles.sql",
     "seed.sql",
     "seed-course.sql",
   ]
