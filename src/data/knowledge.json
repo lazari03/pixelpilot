@@ -1,0 +1,100 @@
+[
+  {
+    "id": "sequence",
+    "title": "Sequences",
+    "keywords": ["sequence", "instructions", "order"],
+    "explanation": "A sequence runs instructions in order. Changing that order can change what happens.",
+    "example": "Move right twice, then down once. What changes if you reverse the order?"
+  },
+  {
+    "id": "variable",
+    "title": "Variables",
+    "keywords": ["variable", "energy", "counter"],
+    "explanation": "A variable is a named place to store a value. Your robot's energy is a variable.",
+    "example": "Start energy at 5. Add 3. Is energy now at least 8?"
+  },
+  {
+    "id": "and",
+    "title": "AND",
+    "keywords": ["both", "and gate"],
+    "explanation": "AND is true only when both conditions are true.",
+    "example": "Test a key with low energy, then a key with energy 8. Which opens an AND gate?"
+  },
+  {
+    "id": "or",
+    "title": "OR",
+    "keywords": ["either", "or gate"],
+    "explanation": "OR is true when at least one condition is true. Both can also be true.",
+    "example": "Try a key with no energy, then no key with energy 8."
+  },
+  {
+    "id": "not",
+    "title": "NOT",
+    "keywords": ["opposite", "not gate"],
+    "explanation": "NOT reverses a Boolean value. True becomes false; false becomes true.",
+    "example": "If has key is false, what is NOT has key?"
+  },
+  {
+    "id": "binary",
+    "title": "Binary truth values",
+    "keywords": ["binary", "boolean", "true", "false", "1 and 0", "bits"],
+    "explanation": "A bit is 0 or 1. In our logic puzzles, 1 represents true and 0 represents false.",
+    "example": "Write 1 for an open gate and 0 for a closed gate."
+  },
+  {
+    "id": "condition",
+    "title": "If / else",
+    "keywords": ["if", "else", "condition", "conditions"],
+    "explanation": "IF runs one branch when a condition is true. ELSE runs the alternative when it is false.",
+    "example": "If energy is at least 8, open the gate; else show a hint."
+  },
+  {
+    "id": "switch",
+    "title": "Switch / case",
+    "keywords": ["switch", "case", "switch case"],
+    "explanation": "Switch chooses an action by matching a value to a named case. A default handles unmatched values.",
+    "example": "For a signal: red means stop, green means go, and default means wait."
+  },
+  {
+    "id": "loop",
+    "title": "Loops",
+    "keywords": ["loop", "repeat", "repetition"],
+    "explanation": "A loop repeats instructions. A counted repeat runs a known number of times.",
+    "example": "Repeat move right 3 times. How many movement blocks does that replace?"
+  },
+  {
+    "id": "while",
+    "title": "While",
+    "keywords": ["while loop"],
+    "explanation": "WHILE checks a condition before each turn. It can run zero times if the condition starts false.",
+    "example": "While energy is below 8, collect energy. What must change to make it stop?"
+  },
+  {
+    "id": "do-while",
+    "title": "Do / while",
+    "keywords": ["do while", "do while loop"],
+    "explanation": "DO / WHILE performs its action once before checking the condition, so it always runs at least once.",
+    "example": "Take one step, then check whether another step is safe."
+  },
+  {
+    "id": "function",
+    "title": "Functions",
+    "keywords": ["function", "reuse", "reusable"],
+    "explanation": "A function gives a reusable group of instructions a name.",
+    "example": "Name a right-then-down sequence cross corner. Where could you use it twice?"
+  },
+  {
+    "id": "debug",
+    "title": "Debugging",
+    "keywords": ["debug", "bug", "mistake", "debugging"],
+    "explanation": "Debugging means finding why a program behaves unexpectedly and testing a change.",
+    "example": "Predict the next square, run one instruction, and compare what happened."
+  },
+  {
+    "id": "prompt",
+    "title": "Prompting",
+    "keywords": ["prompt", "ai", "artificial intelligence"],
+    "explanation": "A clear prompt includes a goal, useful context, constraints and a response format. Check the answer rather than assuming it is right.",
+    "example": "Ask for two hints about a gate, without giving the solution or sharing personal details."
+  }
+]

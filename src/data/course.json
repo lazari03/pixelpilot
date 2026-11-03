@@ -1,0 +1,52 @@
+[
+  {
+    "title": "Plan & Prompt",
+    "topic": "Sequences, events & debugging",
+    "icon": "\u2726",
+    "lesson": "A sequence is a list of instructions in order. Plan a route, run it, then fix one mistake at a time.",
+    "goal": "Move the robot to the beacon.",
+    "prompt": "Describe a robot adventure",
+    "rule": "Give three steps. Do not include personal details.",
+    "day": 0
+  },
+  {
+    "title": "Power & Logic",
+    "topic": "Variables, comparisons & 1 / 0",
+    "icon": "\u03df",
+    "lesson": "A variable stores a value. True can be represented by 1 and false by 0. AND needs both conditions; OR needs at least one; NOT reverses true and false.",
+    "goal": "Open the gate using energy and a key.",
+    "prompt": "Explain AND and OR",
+    "rule": "Use a playground example and two short sentences.",
+    "day": 1
+  },
+  {
+    "title": "Choices & Characters",
+    "topic": "If / else, switch & decisions",
+    "icon": "\u25c7",
+    "lesson": "IF chooses an action when a condition is true. ELSE handles the other case. SWITCH chooses among named cases, like red, yellow and green signals.",
+    "goal": "Choose the right gate rule and test it.",
+    "prompt": "Help me design a tricky gate",
+    "rule": "Use OR. Give a hint, not the answer.",
+    "day": 2
+  },
+  {
+    "title": "Loops & Tools",
+    "topic": "Repeat, while, do / while & functions",
+    "icon": "\u21bb",
+    "lesson": "REPEAT runs a set number of times. WHILE checks before each turn. DO / WHILE runs once before checking. A function gives reusable steps a name.",
+    "goal": "Use repeat to reach the beacon with fewer blocks.",
+    "prompt": "Help me debug a loop",
+    "rule": "Ask one question before suggesting a fix.",
+    "day": 3
+  },
+  {
+    "title": "Playtest & Share",
+    "topic": "Build, test & explain",
+    "icon": "\u2691",
+    "lesson": "Combine your rules into an adventure. Test normal cases and tricky cases. Explain what you changed and why. Check AI suggestions rather than assuming they are correct.",
+    "goal": "Build a route and explain your design to a classmate.",
+    "prompt": "Review my adventure idea",
+    "rule": "Suggest one improvement and one test. Do not solve it for me.",
+    "day": 4
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "name": "pixelpilot",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack --hostname 0.0.0.0",
+    "build": "next build --webpack",
+    "start": "next start --hostname 0.0.0.0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:browser": "playwright test",
+    "db:seed:generate": "node scripts/generate-seed.mjs",
+    "format": "prettier --write src packages tests scripts docs *.ts *.mjs README.md",
+    "format:check": "prettier --check src packages tests scripts docs *.ts *.mjs README.md",
+    "db:check": "node --use-env-proxy scripts/check-supabase.mjs"
+  },
+  "dependencies": {
+    "@pixelpilot/local-tutor": "file:packages/local-tutor",
+    "@supabase/supabase-js": "^2.80.0",
+    "blockly": "^12.3.0",
+    "lucide-react": "^0.468.0",
+    "next": "^16.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.15",
+    "@playwright/test": "^1.64.1",
+    "@tailwindcss/postcss": "^4.1.0",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "prettier": "^3.9.10",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.9.0",
+    "vitest": "^4.0.0"
+  }
+}
