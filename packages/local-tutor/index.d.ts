@@ -20,3 +20,14 @@ export function interpret(
   request: string,
   knowledge: KnowledgeEntry[],
 ): TutorResult;
+export interface StructuredPrompt {
+  goal: string;
+  context: string;
+  rules: string;
+  format: string;
+}
+export function interpretStructured(
+  prompt: StructuredPrompt,
+  knowledge: KnowledgeEntry[],
+  locale?: "en" | "sq",
+): TutorResult;

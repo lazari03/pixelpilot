@@ -51,3 +51,41 @@ describe("local tutor", () => {
     ).toBeUndefined();
   });
 });
+
+describe("structured prompting scaffold", () => {
+  it("rejects unstructured requests and contradictory rules", async () => {
+    const { interpretStructured } = await import("@pixelpilot/local-tutor");
+    expect(
+      interpretStructured(
+        { goal: "do it", context: "", rules: "", format: "" },
+        [],
+      ).action,
+    ).toBeUndefined();
+    expect(
+      interpretStructured(
+        {
+          goal: "move right 3 steps",
+          context: "The robot is at the start",
+          rules: "Do not move the robot",
+          format: "action plan",
+        },
+        [],
+      ).action,
+    ).toBeUndefined();
+  });
+  it("understands Albanian requests with the same action model", async () => {
+    const { interpretStructured } = await import("@pixelpilot/local-tutor");
+    expect(
+      interpretStructured(
+        {
+          goal: "lëviz djathtas 3 hapa",
+          context: "Roboti nis nga këndi lart",
+          rules: "Shmang pemët dhe trego planin",
+          format: "plan veprimi",
+        },
+        [],
+        "sq",
+      ).action,
+    ).toEqual({ type: "move", direction: "right", steps: 3 });
+  });
+});

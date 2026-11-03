@@ -1,10 +1,11 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+import { LanguagePicker, useLocale } from "@/i18n/LocaleProvider";
 export default function Login() {
-  const [message, setMessage] = useState("");
-  const [busy, setBusy] = useState(false);
+  const { t } = useLocale();
+  const [error, setError] = useState(false),
+    [busy, setBusy] = useState(false);
   return (
     <main className="login-wrap">
       <form
@@ -13,46 +14,46 @@ export default function Login() {
           e.preventDefault();
           if (!supabase) return;
           setBusy(true);
-          const f = new FormData(e.currentTarget);
-          const { error } = await supabase.auth.signInWithPassword({
-            email: String(f.get("email")),
-            password: String(f.get("password")),
-          });
-          setBusy(false);
-          if (error)
-            setMessage(
-              "Sign-in did not work. Check your details or ask your teacher.",
-            );
-          else window.location.assign("/");
+          setError(false);
+          try {
+            const form = new FormData(e.currentTarget);
+            const { error } = await supabase.auth.signInWithPassword({
+              email: String(form.get("email")),
+              password: String(form.get("password")),
+            });
+            if (error) setError(true);
+            else window.location.assign("/");
+          } catch {
+            setError(true);
+          } finally {
+            setBusy(false);
+          }
         }}
       >
+        <LanguagePicker />
         <div className="robot">🤖</div>
-        <h1>Welcome, creator.</h1>
-        <p className="muted">Use the account your teacher gave you.</p>
+        <h1>{t("welcome")}</h1>
+        <p>{t("loginHelp")}</p>
         <label>
-          Account email
+          {t("email")}
           <input name="email" type="email" autoComplete="username" required />
         </label>
         <label>
-          Passphrase
+          {t("password")}
           <input
             name="password"
             type="password"
             autoComplete="current-password"
-            required
             minLength={8}
+            required
           />
         </label>
-        <button className="primary full" disabled={busy || !supabase}>
-          {busy ? "Signing in…" : "Enter Creator Lab →"}
+        <button className="primary full" disabled={!supabase || busy}>
+          {busy ? t("loading") : t("login")}
         </button>
         <p role="status">
-          {message ||
-            (!supabase
-              ? "Classroom login will be available once Supabase is configured."
-              : "Need help? Ask your teacher to reset your passphrase.")}
+          {error ? t("loginError") : !supabase ? t("setup") : t("tagline")}
         </p>
-        <Link href="/">Explore the practice demo</Link>
       </form>
     </main>
   );

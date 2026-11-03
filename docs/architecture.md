@@ -1,26 +1,29 @@
-# Creator Lab architecture
+# Architecture
 
-The pilot uses small domain modules and adapters rather than a framework of service classes.
+The app separates content, domain rules, persistence and presentation.
 
-- `src/domain`: pure game rules, course types and the `LearningRepository` contract. No React or Supabase imports.
-- `src/data`: curriculum JSON for repeatable seeding and explicit offline demo fallback; the Supabase repository implements the learning contract. Row level security enforces authorization in PostgreSQL.
-- `src/hooks/useAdventure.ts`: coordinates cancellable game runs and dispatches typed tutor actions.
-- `src/hooks/useLearning.ts`: coordinates authentication, curriculum, progress and learning-event persistence. Stale requests from a previous identity cannot replace the active student's progress.
-- `src/components`: renders the studio and tutor; delegates rules and persistence. Actions from the tutor require a preview and explicit confirmation.
-- `packages/local-tutor`: a local package consumed through an npm file dependency. Uses `fuzzysort` for course knowledge retrieval, with a small adjacent-letter typo correction. A separate exact command grammar returns discriminated action objects. Fuzzy retrieval never executes commands.
+- `src/domain/program.ts`: typed instruction tree and bounded interpreter. Conditions, comparisons, assignments, counted and conditional loops, switch cases and one reusable function. No eval or arbitrary generated JavaScript.
+- `src/features/course`: typed repository adapter and course-loading hook. It reads curriculum and own progress; writes use grading RPCs.
+- `src/features/assessment`: question/attempt UI. The database owns question selection, answer keys, grades and chapter unlocking.
+- `src/components/Blocks.tsx`: Blockly adapter compiles visual blocks into the instruction tree. `CodingWorkspace` animates execution and requests authoritative verification. The coding panel is the largest workspace.
+- `src/i18n`: one locale provider and shared message catalog. Lesson/question translations are data keyed by stable concept IDs, not duplicate React pages.
+- `packages/local-tutor`: deterministic intent interpreter with explicit structured-prompt validation and a lightweight knowledge-retrieval dependency. A command object is previewed before dispatch; fuzzy retrieval cannot execute actions.
+- `src/lib/auth` and `src/proxy.ts`: cookie-based Supabase sessions, refresh and server-side verification. The browser cannot unlock protected pages merely by writing local storage.
 
-The interpreter is deterministic, not an LLM. It supports move, repeat direction, reset and Boolean gate commands; it retrieves explanations for the seeded concepts. It asks for clarification outside its vocabulary and never evaluates arbitrary code. This keeps runtime and network cost small. Basic privacy matching is educational feedback, not a comprehensive PII detector.
+## Assessment boundary
 
-## Data
+Database functions independently run submitted programs with bounded recursion and ticks, validate required tools and block counts, grade private question answers, and check previous chapter completion. Students have read-only access to their own marks/results. Direct score and membership writes are denied. Every RPC checks the authenticated identity and chapter prerequisites. Repeated submissions do not duplicate points or downgrade an existing pass.
 
-`lessons` holds the five-day course. `knowledge_entries` holds explanations, examples and retrieval keywords. Both are readable by demo and authenticated clients; only SQL/admin tools can write them. `progress` stores student completion per day/level. `learning_events` stores structured topic, intent, action and feedback metadata per student. No raw child prompt or model conversation is stored. Each student's rows are private through RLS.
+The SQL interpreter mirrors the browser interpreter. Tests solve every challenge through both and verify complete progression without administrator-awarded marks. Embedded PostgreSQL uses a minimal Supabase auth contract. Browser tests use a local test-only HTTP adapter backed by PostgreSQL; neither is a production authentication shortcut.
 
-`schema.sql`, `001_learning.sql`, and `seed.sql` are applied in that order. All are repeatable. Seed updates course content without replacing student records. PostgreSQL tests apply migrations twice and verify anonymous access restrictions, student isolation and cross-student write rejection. Embedded tests exercise PostgreSQL semantics with a minimal auth contract; live Supabase auth still needs project-level validation.
+## Data and privacy
 
-## Patterns used
+`course_chapters` and `course_challenges` hold bilingual runtime content. `course_questions` is inaccessible to student roles; assessment RPCs return translated question text/options and post-submission explanations. `course_reads`, `course_marks`, `course_prompts`, `course_attempts` and `course_results` store private progress. Raw child prompt text is neither retained nor sent to an AI service. Class memberships are teacher-managed; the ranking RPC returns only nicknames, class names and derived scores for the current pupil's classrooms.
 
-Repository and adapter: a typed persistence contract isolates database details. Command: typed tutor actions are previewed before execution. Pure functions: game transitions and intent interpretation are testable without UI. Composition: the prompt lab is separate from the studio and the learning hook.
+`supabase/setup.sql` combines repeatable schema and seed scripts. `npm run db:seed:generate` rebuilds it. Knowledge, quiz keys and rubric definitions are not self-editable by students. Seed keys remain visible to anyone with source-repository access, so these are classroom learning assessments rather than a proctored examination system.
 
-## Adding knowledge or actions
+## Teaching design
 
-Edit `src/data/knowledge.json`, regenerate `supabase/seed.sql` with `npm run db:seed:generate`, review the SQL and apply it. For new actions, extend the package action union, parser and UI dispatcher, then add rejection and execution tests. Do not use fuzzy similarity to decide a write or introduce `eval`.
+Each of five chapters has three lessons and nine guided activities, plus practical tasks, a structured-prompt exercise and a checkpoint. The hour is a teaching plan, not a delay mechanism. Three difficulty levels change destinations, requirements and code budgets. Quizzes use an 80% threshold; final assessment combines ten questions, two programs and a prompt. The locale is recorded per attempt to keep question and feedback language consistent.
+
+Animations use position transitions and CSS effects; `prefers-reduced-motion` disables them. Language changes rebuild Blockly labels while retaining the current workspace serialization. Switching challenge or leaving the coding screen starts a fresh workspace; programs are currently assessed rather than saved as editable projects.

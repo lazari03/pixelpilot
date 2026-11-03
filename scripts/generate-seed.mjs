@@ -49,3 +49,35 @@ writeFileSync(
     )
     .join("\n"),
 );
+const chapters = JSON.parse(
+  readFileSync(new URL("../src/data/chapters.json", import.meta.url)),
+);
+const challenges = JSON.parse(
+  readFileSync(new URL("../src/data/challenges.json", import.meta.url)),
+);
+const questions = JSON.parse(
+  readFileSync(new URL("./content/questions.private.json", import.meta.url)),
+);
+const json = (value) => `${quote(JSON.stringify(value))}::jsonb`;
+const expanded = `\nbegin;\ninsert into public.course_chapters(day,content) values ${chapters.map((c) => `(${c.day},${json(c)})`).join(",\n")} on conflict(day) do update set content=excluded.content;\ninsert into public.course_challenges(id,day,level,slot,content) values ${challenges.map((c) => `(${quote(c.id)},${c.day},${quote(c.level)},${c.slot},${json(c)})`).join(",\n")} on conflict(id) do update set content=excluded.content;\ninsert into public.course_questions(id,day,text,options,answer,explanation) values ${questions.map((q) => `(${quote(q.id)},${q.day},${json(q.text)},${json(q.options)},${q.answer},${json(q.explanation)})`).join(",\n")} on conflict(id) do update set text=excluded.text,options=excluded.options,answer=excluded.answer,explanation=excluded.explanation;\ncommit;\n`;
+writeFileSync(
+  new URL("../supabase/seed-course.sql", import.meta.url),
+  expanded,
+);
+writeFileSync(
+  new URL("../supabase/setup.sql", import.meta.url),
+  [
+    "schema.sql",
+    "001_learning.sql",
+    "002_course.sql",
+    "seed.sql",
+    "seed-course.sql",
+  ]
+    .map((name) =>
+      readFileSync(new URL(`../supabase/${name}`, import.meta.url), "utf8"),
+    )
+    .join("\n"),
+);
+console.log(
+  `Generated ${chapters.length} chapters, ${challenges.length} challenges, ${questions.length} private questions.`,
+);

@@ -1,0 +1,3 @@
+Blockly media assets from the blockly npm package.
+Upstream: https://github.com/google/blockly
+License: Apache License 2.0 (see LICENSE.txt).

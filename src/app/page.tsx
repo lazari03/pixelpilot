@@ -1,4 +1,6 @@
 import Studio from "@/components/Studio";
-export default function Page() {
+import { requireUser } from "@/lib/auth/server";
+export default async function Page() {
+  await requireUser();
   return <Studio />;
 }

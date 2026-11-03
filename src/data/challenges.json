@@ -1,0 +1,976 @@
+[
+  {
+    "id": "d0-Explorer-0",
+    "day": 0,
+    "level": "Explorer",
+    "slot": 0,
+    "title": {
+      "en": "Rescue route 1",
+      "sq": "Rruga e shpëtimit 1"
+    },
+    "goal": [2, 1],
+    "walls": [[1, 1]],
+    "required": ["move"],
+    "maxNodes": 64,
+    "gate": false,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d0-Explorer-1",
+    "day": 0,
+    "level": "Explorer",
+    "slot": 1,
+    "title": {
+      "en": "Rescue route 2",
+      "sq": "Rruga e shpëtimit 2"
+    },
+    "goal": [3, 2],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["move"],
+    "maxNodes": 64,
+    "gate": false,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d0-Explorer-2",
+    "day": 0,
+    "level": "Explorer",
+    "slot": 2,
+    "title": {
+      "en": "Rescue route 3",
+      "sq": "Rruga e shpëtimit 3"
+    },
+    "goal": [4, 3],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["repeat"],
+    "maxNodes": 64,
+    "gate": false,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d0-Builder-0",
+    "day": 0,
+    "level": "Builder",
+    "slot": 0,
+    "title": {
+      "en": "Rescue route 1",
+      "sq": "Rruga e shpëtimit 1"
+    },
+    "goal": [3, 1],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["move"],
+    "maxNodes": 32,
+    "gate": false,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d0-Builder-1",
+    "day": 0,
+    "level": "Builder",
+    "slot": 1,
+    "title": {
+      "en": "Rescue route 2",
+      "sq": "Rruga e shpëtimit 2"
+    },
+    "goal": [4, 2],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["move"],
+    "maxNodes": 32,
+    "gate": false,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d0-Builder-2",
+    "day": 0,
+    "level": "Builder",
+    "slot": 2,
+    "title": {
+      "en": "Rescue route 3",
+      "sq": "Rruga e shpëtimit 3"
+    },
+    "goal": [5, 3],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["repeat"],
+    "maxNodes": 32,
+    "gate": false,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d0-Inventor-0",
+    "day": 0,
+    "level": "Inventor",
+    "slot": 0,
+    "title": {
+      "en": "Rescue route 1",
+      "sq": "Rruga e shpëtimit 1"
+    },
+    "goal": [3, 2],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["move"],
+    "maxNodes": 14,
+    "gate": false,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d0-Inventor-1",
+    "day": 0,
+    "level": "Inventor",
+    "slot": 1,
+    "title": {
+      "en": "Rescue route 2",
+      "sq": "Rruga e shpëtimit 2"
+    },
+    "goal": [4, 3],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["move"],
+    "maxNodes": 14,
+    "gate": false,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d0-Inventor-2",
+    "day": 0,
+    "level": "Inventor",
+    "slot": 2,
+    "title": {
+      "en": "Rescue route 3",
+      "sq": "Rruga e shpëtimit 3"
+    },
+    "goal": [5, 4],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["repeat"],
+    "maxNodes": 14,
+    "gate": false,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d1-Explorer-0",
+    "day": 1,
+    "level": "Explorer",
+    "slot": 0,
+    "title": {
+      "en": "Rescue route 1",
+      "sq": "Rruga e shpëtimit 1"
+    },
+    "goal": [2, 1],
+    "walls": [[1, 1]],
+    "required": ["charge"],
+    "maxNodes": 64,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d1-Explorer-1",
+    "day": 1,
+    "level": "Explorer",
+    "slot": 1,
+    "title": {
+      "en": "Rescue route 2",
+      "sq": "Rruga e shpëtimit 2"
+    },
+    "goal": [3, 2],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["if"],
+    "maxNodes": 64,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d1-Explorer-2",
+    "day": 1,
+    "level": "Explorer",
+    "slot": 2,
+    "title": {
+      "en": "Rescue route 3",
+      "sq": "Rruga e shpëtimit 3"
+    },
+    "goal": [4, 3],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["repeat"],
+    "maxNodes": 64,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d1-Builder-0",
+    "day": 1,
+    "level": "Builder",
+    "slot": 0,
+    "title": {
+      "en": "Rescue route 1",
+      "sq": "Rruga e shpëtimit 1"
+    },
+    "goal": [3, 1],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["charge"],
+    "maxNodes": 32,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d1-Builder-1",
+    "day": 1,
+    "level": "Builder",
+    "slot": 1,
+    "title": {
+      "en": "Rescue route 2",
+      "sq": "Rruga e shpëtimit 2"
+    },
+    "goal": [4, 2],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["if"],
+    "maxNodes": 32,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d1-Builder-2",
+    "day": 1,
+    "level": "Builder",
+    "slot": 2,
+    "title": {
+      "en": "Rescue route 3",
+      "sq": "Rruga e shpëtimit 3"
+    },
+    "goal": [5, 3],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["repeat"],
+    "maxNodes": 32,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d1-Inventor-0",
+    "day": 1,
+    "level": "Inventor",
+    "slot": 0,
+    "title": {
+      "en": "Rescue route 1",
+      "sq": "Rruga e shpëtimit 1"
+    },
+    "goal": [3, 2],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["charge"],
+    "maxNodes": 14,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d1-Inventor-1",
+    "day": 1,
+    "level": "Inventor",
+    "slot": 1,
+    "title": {
+      "en": "Rescue route 2",
+      "sq": "Rruga e shpëtimit 2"
+    },
+    "goal": [4, 3],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["if"],
+    "maxNodes": 14,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d1-Inventor-2",
+    "day": 1,
+    "level": "Inventor",
+    "slot": 2,
+    "title": {
+      "en": "Rescue route 3",
+      "sq": "Rruga e shpëtimit 3"
+    },
+    "goal": [5, 4],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["repeat"],
+    "maxNodes": 14,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d2-Explorer-0",
+    "day": 2,
+    "level": "Explorer",
+    "slot": 0,
+    "title": {
+      "en": "Rescue route 1",
+      "sq": "Rruga e shpëtimit 1"
+    },
+    "goal": [2, 1],
+    "walls": [[1, 1]],
+    "required": ["if"],
+    "maxNodes": 64,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d2-Explorer-1",
+    "day": 2,
+    "level": "Explorer",
+    "slot": 1,
+    "title": {
+      "en": "Rescue route 2",
+      "sq": "Rruga e shpëtimit 2"
+    },
+    "goal": [3, 2],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["switch"],
+    "maxNodes": 64,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d2-Explorer-2",
+    "day": 2,
+    "level": "Explorer",
+    "slot": 2,
+    "title": {
+      "en": "Rescue route 3",
+      "sq": "Rruga e shpëtimit 3"
+    },
+    "goal": [4, 3],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["if"],
+    "maxNodes": 64,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d2-Builder-0",
+    "day": 2,
+    "level": "Builder",
+    "slot": 0,
+    "title": {
+      "en": "Rescue route 1",
+      "sq": "Rruga e shpëtimit 1"
+    },
+    "goal": [3, 1],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["if"],
+    "maxNodes": 32,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d2-Builder-1",
+    "day": 2,
+    "level": "Builder",
+    "slot": 1,
+    "title": {
+      "en": "Rescue route 2",
+      "sq": "Rruga e shpëtimit 2"
+    },
+    "goal": [4, 2],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["switch"],
+    "maxNodes": 32,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d2-Builder-2",
+    "day": 2,
+    "level": "Builder",
+    "slot": 2,
+    "title": {
+      "en": "Rescue route 3",
+      "sq": "Rruga e shpëtimit 3"
+    },
+    "goal": [5, 3],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["if"],
+    "maxNodes": 32,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d2-Inventor-0",
+    "day": 2,
+    "level": "Inventor",
+    "slot": 0,
+    "title": {
+      "en": "Rescue route 1",
+      "sq": "Rruga e shpëtimit 1"
+    },
+    "goal": [3, 2],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["if"],
+    "maxNodes": 14,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d2-Inventor-1",
+    "day": 2,
+    "level": "Inventor",
+    "slot": 1,
+    "title": {
+      "en": "Rescue route 2",
+      "sq": "Rruga e shpëtimit 2"
+    },
+    "goal": [4, 3],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["switch"],
+    "maxNodes": 14,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d2-Inventor-2",
+    "day": 2,
+    "level": "Inventor",
+    "slot": 2,
+    "title": {
+      "en": "Rescue route 3",
+      "sq": "Rruga e shpëtimit 3"
+    },
+    "goal": [5, 4],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["if"],
+    "maxNodes": 14,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d3-Explorer-0",
+    "day": 3,
+    "level": "Explorer",
+    "slot": 0,
+    "title": {
+      "en": "Rescue route 1",
+      "sq": "Rruga e shpëtimit 1"
+    },
+    "goal": [2, 1],
+    "walls": [[1, 1]],
+    "required": ["repeat"],
+    "maxNodes": 64,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d3-Explorer-1",
+    "day": 3,
+    "level": "Explorer",
+    "slot": 1,
+    "title": {
+      "en": "Rescue route 2",
+      "sq": "Rruga e shpëtimit 2"
+    },
+    "goal": [3, 2],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["while"],
+    "maxNodes": 64,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d3-Explorer-2",
+    "day": 3,
+    "level": "Explorer",
+    "slot": 2,
+    "title": {
+      "en": "Rescue route 3",
+      "sq": "Rruga e shpëtimit 3"
+    },
+    "goal": [4, 3],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["doWhile"],
+    "maxNodes": 64,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d3-Builder-0",
+    "day": 3,
+    "level": "Builder",
+    "slot": 0,
+    "title": {
+      "en": "Rescue route 1",
+      "sq": "Rruga e shpëtimit 1"
+    },
+    "goal": [3, 1],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["repeat"],
+    "maxNodes": 32,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d3-Builder-1",
+    "day": 3,
+    "level": "Builder",
+    "slot": 1,
+    "title": {
+      "en": "Rescue route 2",
+      "sq": "Rruga e shpëtimit 2"
+    },
+    "goal": [4, 2],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["while"],
+    "maxNodes": 32,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d3-Builder-2",
+    "day": 3,
+    "level": "Builder",
+    "slot": 2,
+    "title": {
+      "en": "Rescue route 3",
+      "sq": "Rruga e shpëtimit 3"
+    },
+    "goal": [5, 3],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["doWhile"],
+    "maxNodes": 32,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d3-Inventor-0",
+    "day": 3,
+    "level": "Inventor",
+    "slot": 0,
+    "title": {
+      "en": "Rescue route 1",
+      "sq": "Rruga e shpëtimit 1"
+    },
+    "goal": [3, 2],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["repeat", "call"],
+    "maxNodes": 14,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d3-Inventor-1",
+    "day": 3,
+    "level": "Inventor",
+    "slot": 1,
+    "title": {
+      "en": "Rescue route 2",
+      "sq": "Rruga e shpëtimit 2"
+    },
+    "goal": [4, 3],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["while", "call"],
+    "maxNodes": 14,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d3-Inventor-2",
+    "day": 3,
+    "level": "Inventor",
+    "slot": 2,
+    "title": {
+      "en": "Rescue route 3",
+      "sq": "Rruga e shpëtimit 3"
+    },
+    "goal": [5, 4],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["doWhile", "call"],
+    "maxNodes": 14,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d4-Explorer-0",
+    "day": 4,
+    "level": "Explorer",
+    "slot": 0,
+    "title": {
+      "en": "Rescue route 1",
+      "sq": "Rruga e shpëtimit 1"
+    },
+    "goal": [2, 1],
+    "walls": [[1, 1]],
+    "required": ["call"],
+    "maxNodes": 64,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d4-Explorer-1",
+    "day": 4,
+    "level": "Explorer",
+    "slot": 1,
+    "title": {
+      "en": "Rescue route 2",
+      "sq": "Rruga e shpëtimit 2"
+    },
+    "goal": [3, 2],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["if"],
+    "maxNodes": 64,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d4-Explorer-2",
+    "day": 4,
+    "level": "Explorer",
+    "slot": 2,
+    "title": {
+      "en": "Rescue route 3",
+      "sq": "Rruga e shpëtimit 3"
+    },
+    "goal": [4, 3],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["while"],
+    "maxNodes": 64,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d4-Builder-0",
+    "day": 4,
+    "level": "Builder",
+    "slot": 0,
+    "title": {
+      "en": "Rescue route 1",
+      "sq": "Rruga e shpëtimit 1"
+    },
+    "goal": [3, 1],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["call"],
+    "maxNodes": 32,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d4-Builder-1",
+    "day": 4,
+    "level": "Builder",
+    "slot": 1,
+    "title": {
+      "en": "Rescue route 2",
+      "sq": "Rruga e shpëtimit 2"
+    },
+    "goal": [4, 2],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["if"],
+    "maxNodes": 32,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d4-Builder-2",
+    "day": 4,
+    "level": "Builder",
+    "slot": 2,
+    "title": {
+      "en": "Rescue route 3",
+      "sq": "Rruga e shpëtimit 3"
+    },
+    "goal": [5, 3],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["while"],
+    "maxNodes": 32,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d4-Inventor-0",
+    "day": 4,
+    "level": "Inventor",
+    "slot": 0,
+    "title": {
+      "en": "Rescue route 1",
+      "sq": "Rruga e shpëtimit 1"
+    },
+    "goal": [3, 2],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["call", "call"],
+    "maxNodes": 14,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d4-Inventor-1",
+    "day": 4,
+    "level": "Inventor",
+    "slot": 1,
+    "title": {
+      "en": "Rescue route 2",
+      "sq": "Rruga e shpëtimit 2"
+    },
+    "goal": [4, 3],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["if", "call"],
+    "maxNodes": 14,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "d4-Inventor-2",
+    "day": 4,
+    "level": "Inventor",
+    "slot": 2,
+    "title": {
+      "en": "Rescue route 3",
+      "sq": "Rruga e shpëtimit 3"
+    },
+    "goal": [5, 4],
+    "walls": [
+      [1, 1],
+      [2, 2]
+    ],
+    "required": ["while", "call"],
+    "maxNodes": 14,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": false
+  },
+  {
+    "id": "exam-0",
+    "day": 5,
+    "level": "Builder",
+    "slot": 0,
+    "title": {
+      "en": "Final rescue 1",
+      "sq": "Shpëtimi përfundimtar 1"
+    },
+    "goal": [5, 4],
+    "walls": [
+      [1, 1],
+      [2, 2],
+      [3, 3]
+    ],
+    "required": ["call", "repeat"],
+    "maxNodes": 20,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": true
+  },
+  {
+    "id": "exam-1",
+    "day": 5,
+    "level": "Builder",
+    "slot": 1,
+    "title": {
+      "en": "Final rescue 2",
+      "sq": "Shpëtimi përfundimtar 2"
+    },
+    "goal": [5, 5],
+    "walls": [
+      [1, 1],
+      [2, 2],
+      [3, 3]
+    ],
+    "required": ["while", "if"],
+    "maxNodes": 20,
+    "gate": true,
+    "energy": 5,
+    "signal": "green",
+    "exam": true
+  }
+]

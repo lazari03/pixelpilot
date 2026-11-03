@@ -1,39 +1,58 @@
 # PixelPilot · Creator Lab
 
-A five-day elementary coding and AI literacy pilot. Next.js, TypeScript, Tailwind, Blockly and optional Supabase. No AI API key or paid AI service is required.
+A classroom coding and AI-literacy course in Albanian and English. Next.js, TypeScript, Blockly, Supabase and a small local prompt interpreter. Login is required; there is no public demo route or paid AI service.
 
-## Develop
+## Run locally
 
-Use Node.js 24 and npm. Run `npm ci`, then `npm run dev` from this directory. `npm test`, `npm run typecheck`, and `npm run build` validate the project. The demo works without credentials and stores completion locally on the current browser. Each day is available immediately for teacher-led navigation.
+Use Node.js 24. Run `npm ci`. Copy `.env.example` to `.env.local` and provide `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. Use only the project publishable key, never a service-role key in browser configuration. Run `npm run dev`.
 
-## Connect Supabase
+In Supabase's SQL editor, apply **`supabase/setup.sql`**. It is a repeatable combined migration and seed: it preserves student records, installs the new course schema and grading functions, and updates course content. Existing installations can apply `002_course.sql` and `seed-course.sql` after their original migrations. Restart/redeploy after changing public environment variables.
 
-Copy `.env.example` to `.env.local` and populate `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` with your project URL and publishable key. These are intended browser configuration, not administrative secrets. Never supply a service-role key to client code. Restart the dev server after editing environment variables.
+Create student accounts in Supabase Authentication with teacher-managed email aliases and unique passphrases. Disable public signup and configure authentication rate limits and password policy. Teacher resets stay in the Supabase dashboard. Cookie sessions are refreshed in `src/proxy.ts`; protected pages independently verify the user on the server. Database RLS and grading functions enforce access even when browser requests are modified.
 
-Run `supabase/setup.sql` in the project SQL editor to create and seed the complete database. This generated file combines the three scripts described below. The progress table uses row level security so students can access only their own rows. Create accounts through Supabase Authentication > Users using teacher-managed email aliases and unique generated passphrases. Disable public signup in Supabase settings. Configure provider rate limits, password policy, and CAPTCHA as required before a public classroom launch. The app does not expose an account creation or admin endpoint. Teachers reset passwords via the Supabase dashboard. The teacher page is a public lesson guide, not a student management dashboard.
+## One-week course
 
-Verify login, progress persistence, logout and isolation between two real accounts before classroom use. Auth and live database integration cannot be verified without a configured Supabase project. Demo progress is separate and is not imported into accounts. Do not use shared browser demo storage for confidential information.
+Five 60-minute chapters, each with three bilingual lessons, nine guided activities, three practical tasks at the selected difficulty, a structured-prompt task and a checkpoint quiz. Timing: 10-minute introduction, 15-minute guided practice, 20-minute build, 10-minute quiz and five-minute reflection. Optional partner design and testing activities extend each day by up to an hour. These are teaching estimates, not enforced wait timers.
 
-## Deploy on Vercel
+| Chapter                 | Concepts                                       |
+| ----------------------- | ---------------------------------------------- |
+| Think Like a Programmer | Sequences, events, debugging, prompt structure |
+| Power, Numbers & Logic  | Variables, comparisons, bits, AND / OR / NOT   |
+| Decisions & Characters  | If / else, nesting, switch / case, edge cases  |
+| Loops & Reusable Tools  | Repeat, while, do / while, functions           |
+| Build, Test & Graduate  | Design, peer testing, evaluating AI assistance |
 
-Import this repository as a Next.js project. Set the two public Supabase variables in Vercel environment settings and redeploy. Configure the Supabase site URL for the deployed HTTPS origin. Apply the SQL schema in your Supabase project. No local database or writable Vercel disk is required. Review hosting plan terms and your school's student data requirements before use.
+There are **45 differentiated challenge variants**, plus **two final practicals**, **15 lessons**, **45 guided activities**, and **40 question-bank items**. Explorer, Builder and Inventor change targets, block budgets and required tools. A checkpoint passes at 80% plus all three practical tasks, lesson completion and a valid structured prompt. Later chapters unlock in order. Retakes draw a randomized subset/order from the chapter question bank.
 
-## Pilot scope
+The final exam draws ten questions (two per chapter), requires two practical programs and a structured prompt, and passes at 80% with all practical requirements met. Weighting: questions 50 points, programs 40, prompt 10. Answers, explanations and attempts follow the language selected at the start of an attempt.
 
-Movement and repeat blocks execute in a bounded interpreter, never eval. Boolean gates support AND, OR and NOT with editable sensor values. Days include sequences, variables, binary truth values, conditions, loops, functions, testing and prompt literacy. Switch/case, while, do/while and functions currently have lesson explanations, not dedicated executable blocks. The three levels change scaffolding and challenge suggestions; they are not separate puzzle sets yet.
+## Classroom leaderboard
 
-The prompt lab uses the local interpreter described below. Its personal-information warning is educational feedback, not a comprehensive privacy filter. Raw prompts are not sent to a third party or stored in the database.
+Teachers manage memberships through Supabase SQL/dashboard; students cannot add themselves or edit points. Example (replace UUIDs and nickname):
 
-Before expanding the pilot: add executable blocks for remaining constructs, differentiated puzzle sets, accessible game descriptions, classroom administration and end-to-end auth tests against your configured project.
+```sql
+insert into public.classrooms (id, name)
+values ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Class 1');
+insert into public.class_members (class_id, user_id, nickname)
+values ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '<student-auth-user-id>', 'Robot One');
+```
 
-## Local tutor and database knowledge
+The ranking RPC returns only classmates' nicknames and points in classrooms the signed-in student belongs to. Scores reward verified tasks and mastery, not speed. No public student roster or email is returned. With no membership, the UI asks the pupil to contact the teacher.
 
-The app now consumes `@pixelpilot/local-tutor`, a small local dependency in `packages/local-tutor`. It uses `fuzzysort` to retrieve curriculum explanations and a bounded command grammar to translate requests into game actions. Examples: `move right 3 steps`, `repeat down 5 times`, `set gate to AND`, `reset robot`, `explain loops`. Every action is previewed and requires confirmation. Unknown requests ask for clarification. There is no downloaded language model and no AI API call.
+## Prompting and local tutor
 
-Apply `supabase/schema.sql`, `supabase/001_learning.sql`, then `supabase/seed.sql` in that order. They can be re-run. These store five lessons, fourteen knowledge entries, progress, and structured learning events. Update JSON content under `src/data`, then run `npm run db:seed:generate` to regenerate seed SQL. The live app reads curriculum through the Supabase repository; missing configuration or failed reads show an explicit offline demo status. Anonymous users can read course content, but cannot read or write student records. Raw child questions are not stored. Signed-in learning metadata is private to the student through RLS.
+`@pixelpilot/local-tutor` is a local npm dependency. Students must first complete the prompting lesson, then supply goal, context, rules and response format. Vague or contradictory requests do not produce actions. Supported structured goals include `move right 3 steps`, `reset robot`, `lëviz djathtas 3 hapa` and `rifillo robotin`; format is `action plan` or `plan veprimi`. The interpreter is bounded and deterministic, not an LLM. Every action requires a preview and confirmation. Raw child prompts are not stored; the database stores completion only.
 
-Run `npm test` for tutor, game and embedded PostgreSQL tests. The latter verify repeated migration/seed application and data isolation using a minimal Supabase-compatible auth contract; they do not establish live project readiness. Run `npm start -- --port 3001`, then `npm run test:browser` for Chromium checks. Chromium is expected at `/usr/bin/chromium` in this sandbox.
+## Content and translations
 
-See [architecture](docs/architecture.md) for module boundaries, design patterns and extension points. Live database provisioning and authentication require the publishable key and SQL access; a project URL alone cannot apply migrations.
+UI messages live in `src/i18n/messages.ts`. Lessons and activities are in `src/data/chapters.json`; challenge definitions are in `src/data/challenges.json`. Both locales use the same components and stable IDs. Questions and answer keys are in `scripts/content/questions.private.json`, used only to generate SQL, never imported by client code. Here “private” means excluded from client bundles, not encrypted in the source repository.
 
-Run `npm run db:check` after configuring credentials and applying SQL for read-only live curriculum and anonymous-access checks. It never prints keys.
+Run `npm run db:seed:generate` after changing content; review and apply the generated SQL. The database is the runtime course source. There is no silent demo fallback when the schema is missing.
+
+## Validation and deployment
+
+- `npm test`: domain, local-tutor and embedded PostgreSQL tests, including all 47 solutions, full progression, final exam and RLS.
+- `npm run typecheck`, `npm run format:check`, `npm run build`.
+- `npm run test:browser`: launches an isolated local Supabase-compatible PostgreSQL fixture and dev server. Tests auth, locales, prompting, workspace size, mobile layout and reduced motion. Uses `/usr/bin/chromium` or `CHROMIUM_PATH`. The fixture is test-only and is never imported by production code.
+
+Import the repository into Vercel, set both public variables, and deploy as Next.js. Apply `supabase/setup.sql`, create student accounts and classroom memberships, and test the live project before classroom use. Local database/HTTP-fixture tests do not establish live Supabase configuration. No AI API key is needed.

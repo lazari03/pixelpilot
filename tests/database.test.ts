@@ -18,15 +18,14 @@ beforeAll(async () => {
   await db.exec(
     `create role anon; create role authenticated; create schema auth; create table auth.users(id uuid primary key); create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$; grant usage on schema auth to anon,authenticated; grant execute on function auth.uid() to anon,authenticated; insert into auth.users values ('${studentA}'),('${studentB}');`,
   );
-  for (const file of [
-    "schema.sql",
-    "001_learning.sql",
-    "seed.sql",
-    "schema.sql",
-    "001_learning.sql",
-    "seed.sql",
-  ])
-    await db.exec(readFileSync(`supabase/${file}`, "utf8"));
+  for (const file of ["setup.sql", "setup.sql"]) {
+    try {
+      await db.exec(readFileSync(`supabase/${file}`, "utf8"));
+    } catch (error) {
+      console.error(file, (error as { message: string }).message);
+      throw error;
+    }
+  }
 }, 30000);
 afterAll(async () => {
   await db?.close();
@@ -101,5 +100,238 @@ describe("database migrations and RLS", () => {
     } finally {
       await db.exec("reset role");
     }
+  });
+});
+
+describe("course assessment security", () => {
+  it("denies anonymous chapter reads and direct answer access", async () => {
+    await db.exec("set role anon");
+    try {
+      await expect(db.query("select * from course_chapters")).rejects.toThrow();
+    } finally {
+      await db.exec("reset role");
+    }
+    await expect(
+      asStudent(studentA, "select * from course_questions"),
+    ).rejects.toThrow();
+    await expect(
+      asStudent(
+        studentA,
+        `insert into course_results values ('${studentA}',4,'Explorer',100,true)`,
+      ),
+    ).rejects.toThrow();
+  });
+  it("blocks locked chapters and prompt shortcuts", async () => {
+    await expect(
+      asStudent(studentA, "select course_read('1-0')"),
+    ).rejects.toThrow();
+    await expect(
+      asStudent(studentA, "select course_quiz_start(5,'Builder','en')"),
+    ).rejects.toThrow();
+    const result = await asStudent(
+      studentA,
+      "select course_submit_prompt(0,'do it','','','') as accepted",
+    );
+    expect(result.rows).toEqual([{ accepted: false }]);
+  });
+  it("provides translated questions without answer keys", async () => {
+    const result = await asStudent(
+      studentA,
+      "select course_quiz_start(0,'Explorer','sq') as attempt",
+    );
+    const attempt = (
+      result.rows[0] as {
+        attempt: {
+          id: string;
+          questions: { id: string; text: string; options: string[] }[];
+        };
+      }
+    ).attempt;
+    expect(attempt.questions).toHaveLength(5);
+    expect(
+      attempt.questions.every(
+        (q) =>
+          typeof q.text === "string" &&
+          q.options.length === 3 &&
+          !("answer" in q),
+      ),
+    ).toBe(true);
+  });
+  it("verifies all 47 challenge programs in PostgreSQL and matches the browser engine", async () => {
+    const { default: challenges } = await import("../src/data/challenges.json");
+    // Unlock later chapters as the admin fixture, not through a student write.
+    for (let day = 0; day < 5; day++)
+      await db.exec(
+        `insert into course_results values ('${studentA}',${day},'Builder',100,true) on conflict do nothing`,
+      );
+    const { solution } = await import("./helpers/solutions");
+    for (const challenge of challenges) {
+      const program = solution(challenge);
+      const result = await asStudent(
+        studentA,
+        `select course_submit_program('${challenge.id}','${JSON.stringify(program)}'::jsonb) as accepted`,
+      );
+      expect(result.rows, challenge.id).toEqual([{ accepted: true }]);
+    }
+  });
+  it("requires practical work, a structured prompt and lessons before passing a quiz", async () => {
+    const result = await asStudent(
+      studentB,
+      "select course_quiz_start(0,'Explorer','en') as attempt",
+    );
+    const a = (
+      result.rows[0] as { attempt: { id: string; questions: { id: string }[] } }
+    ).attempt;
+    const keys = await db.query<{ id: string; answer: number }>(
+      `select id,answer from course_questions where day=0`,
+    );
+    const answers = Object.fromEntries(
+      a.questions.map((q) => [
+        q.id,
+        keys.rows.find((k) => k.id === q.id)!.answer,
+      ]),
+    );
+    const grade = await asStudent(
+      studentB,
+      `select course_quiz_submit('${a.id}','${JSON.stringify(answers)}'::jsonb) as grade`,
+    );
+    expect(
+      (grade.rows[0] as { grade: { score: number; passed: boolean } }).grade,
+    ).toMatchObject({ score: 100, passed: false });
+    await expect(
+      asStudent(
+        studentB,
+        `select course_quiz_submit('${a.id}','${JSON.stringify(answers)}'::jsonb)`,
+      ),
+    ).rejects.toThrow();
+  });
+  it("stores structured-prompt success without retaining raw text", async () => {
+    await asStudent(studentA, "select course_read('0-2')");
+    const good = await asStudent(
+      studentA,
+      "select course_submit_prompt(0,'lëviz djathtas 3 hapa','Roboti nis nga këndi lart','Shmang pemët dhe trego planin','plan veprimi') as accepted",
+    );
+    expect(good.rows).toEqual([{ accepted: true }]);
+    expect(
+      (await asStudent(studentB, "select * from course_prompts")).rows,
+    ).toHaveLength(0);
+  });
+  it("only shares rankings within enrolled classrooms", async () => {
+    const classA = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      classB = "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb";
+    await db.exec(
+      `insert into classrooms values ('${classA}','Class A'),('${classB}','Class B');insert into class_members values ('${classA}','${studentA}','Robot A'),('${classB}','${studentB}','Robot B');`,
+    );
+    const rows = await asStudent(
+      studentA,
+      "select course_leaderboard() as ranks",
+    );
+    const ranks = (rows.rows[0] as { ranks: { nickname: string }[] }).ranks;
+    expect(ranks.map((r) => r.nickname)).toEqual(["Robot A"]);
+    await expect(
+      asStudent(studentB, `update class_members set class_id='${classA}'`),
+    ).rejects.toThrow();
+  });
+});
+
+describe("complete one-week progression", () => {
+  it("grades all five chapters, then a bilingual final exam with required practicals", async () => {
+    const { default: challenges } = await import("../src/data/challenges.json");
+    const { solution } = await import("./helpers/solutions");
+    async function perfectQuiz(day: number, locale = "en") {
+      const started = await asStudent(
+        studentB,
+        `select course_quiz_start(${day},'Explorer','${locale}') as attempt`,
+      );
+      const attempt = (
+        started.rows[0] as {
+          attempt: { id: string; questions: { id: string }[] };
+        }
+      ).attempt;
+      const keys = await db.query<{ id: string; answer: number }>(
+        "select id,answer from course_questions",
+      );
+      const answers = Object.fromEntries(
+        attempt.questions.map((q) => [
+          q.id,
+          keys.rows.find((k) => k.id === q.id)!.answer,
+        ]),
+      );
+      const graded = await asStudent(
+        studentB,
+        `select course_quiz_submit('${attempt.id}','${JSON.stringify(answers)}') as grade`,
+      );
+      return (graded.rows[0] as { grade: { passed: boolean; score: number } })
+        .grade;
+    }
+    for (let day = 0; day < 5; day++) {
+      for (let unit = 0; unit < 3; unit++)
+        await asStudent(studentB, `select course_read('${day}-${unit}')`);
+      for (const c of challenges.filter(
+        (c) => c.day === day && c.level === "Explorer",
+      ))
+        expect(
+          (
+            await asStudent(
+              studentB,
+              `select course_submit_program('${c.id}','${JSON.stringify(solution(c))}') as ok`,
+            )
+          ).rows,
+        ).toEqual([{ ok: true }]);
+      expect(
+        (
+          await asStudent(
+            studentB,
+            `select course_submit_prompt(${day},'move right 3 steps','The robot is at the start','Avoid trees and preview first','action plan') as ok`,
+          )
+        ).rows,
+      ).toEqual([{ ok: true }]);
+      expect(await perfectQuiz(day, day % 2 ? "sq" : "en")).toMatchObject({
+        score: 100,
+        passed: true,
+      });
+    }
+    expect((await perfectQuiz(5, "sq")).passed).toBe(false);
+    for (const c of challenges.filter((c) => c.exam))
+      expect(
+        (
+          await asStudent(
+            studentB,
+            `select course_submit_program('${c.id}','${JSON.stringify(solution(c))}') as ok`,
+          )
+        ).rows,
+      ).toEqual([{ ok: true }]);
+    await asStudent(
+      studentB,
+      "select course_submit_prompt(5,'lëviz djathtas 3 hapa','Roboti nis nga këndi lart','Shmang pemët dhe trego planin','plan veprimi')",
+    );
+    expect(await perfectQuiz(5, "sq")).toMatchObject({
+      score: 100,
+      passed: true,
+    });
+  });
+  it("rejects null prompts, malformed blocks, and non-terminating programs", async () => {
+    expect(
+      (
+        await asStudent(
+          studentB,
+          "select course_submit_prompt(5,null,'context with detail','rules with detail','action plan') as ok",
+        )
+      ).rows,
+    ).toEqual([{ ok: false }]);
+    await expect(
+      asStudent(
+        studentB,
+        `select course_submit_program('exam-0','{"body":[{"type":"move"}],"tool":[]}')`,
+      ),
+    ).rejects.toThrow();
+    expect(
+      (
+        await asStudent(
+          studentB,
+          `select course_submit_program('exam-0','{"body":[{"type":"while","condition":"hasKey","body":[]}],"tool":[]}') as ok`,
+        )
+      ).rows,
+    ).toEqual([{ ok: false }]);
   });
 });

@@ -1,0 +1,806 @@
+[
+  {
+    "id": "q0-0",
+    "day": 0,
+    "text": {
+      "en": "What does a sequence describe?",
+      "sq": "Çfarë përshkruan një varg udhëzimesh?"
+    },
+    "options": {
+      "en": [
+        "Instructions in order",
+        "Only the last instruction",
+        "Random actions"
+      ],
+      "sq": [
+        "Udhëzime me radhë",
+        "Vetëm udhëzimin e fundit",
+        "Veprime të rastësishme"
+      ]
+    },
+    "answer": 0,
+    "explanation": {
+      "en": "A sequence follows the order written.",
+      "sq": "Vargu ndjek rendin e shkruar."
+    }
+  },
+  {
+    "id": "q0-1",
+    "day": 0,
+    "text": {
+      "en": "Right, right, down: how many moves?",
+      "sq": "Djathtas, djathtas, poshtë: sa lëvizje?"
+    },
+    "options": {
+      "en": ["2", "3", "4"],
+      "sq": ["2", "3", "4"]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "Count each executed movement once.",
+      "sq": "Numëro çdo lëvizje të ekzekutuar një herë."
+    }
+  },
+  {
+    "id": "q0-2",
+    "day": 0,
+    "text": {
+      "en": "What is a useful first debugging step?",
+      "sq": "Cili është hapi i parë i dobishëm për korrigjim?"
+    },
+    "options": {
+      "en": [
+        "Change everything",
+        "Predict and test one step",
+        "Delete the program"
+      ],
+      "sq": [
+        "Ndrysho gjithçka",
+        "Parashiko dhe provo një hap",
+        "Fshi programin"
+      ]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "A small test helps locate the problem.",
+      "sq": "Një provë e vogël ndihmon të gjesh problemin."
+    }
+  },
+  {
+    "id": "q0-3",
+    "day": 0,
+    "text": {
+      "en": "Which starts the program here?",
+      "sq": "Çfarë e nis programin këtu?"
+    },
+    "options": {
+      "en": ["A tree", "The flag", "The Run event"],
+      "sq": ["Një pemë", "Flamuri", "Ngjarja Ekzekuto"]
+    },
+    "answer": 2,
+    "explanation": {
+      "en": "Pressing Run is an event.",
+      "sq": "Shtypja e Ekzekuto është ngjarje."
+    }
+  },
+  {
+    "id": "q0-4",
+    "day": 0,
+    "text": {
+      "en": "Which prompt is most useful?",
+      "sq": "Cila kërkesë është më e dobishme?"
+    },
+    "options": {
+      "en": [
+        "Do it",
+        "Move right 3 steps; start at the corner; avoid trees; show a plan",
+        "Win now"
+      ],
+      "sq": [
+        "Bëje",
+        "Lëviz djathtas 3 hapa; nis nga këndi; shmang pemët; trego planin",
+        "Fito tani"
+      ]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "It gives a goal, context, rules and format.",
+      "sq": "Jep qëllim, kontekst, rregulla dhe format."
+    }
+  },
+  {
+    "id": "q0-5",
+    "day": 0,
+    "text": {
+      "en": "What belongs in prompt context?",
+      "sq": "Çfarë bën pjesë në kontekst?"
+    },
+    "options": {
+      "en": [
+        "The robot’s starting position",
+        "Your home address",
+        "Your password"
+      ],
+      "sq": ["Vendnisja e robotit", "Adresa e shtëpisë", "Fjalëkalimi"]
+    },
+    "answer": 0,
+    "explanation": {
+      "en": "Context describes the task, not private details.",
+      "sq": "Konteksti përshkruan detyrën, jo të dhëna private."
+    }
+  },
+  {
+    "id": "q0-6",
+    "day": 0,
+    "text": {
+      "en": "Why change one instruction at a time?",
+      "sq": "Pse ndryshojmë një udhëzim çdo herë?"
+    },
+    "options": {
+      "en": [
+        "To make more mistakes",
+        "To see what caused the result",
+        "To avoid testing"
+      ],
+      "sq": [
+        "Për më shumë gabime",
+        "Për të parë çfarë shkaktoi rezultatin",
+        "Për të shmangur provat"
+      ]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "One change makes comparison easier.",
+      "sq": "Një ndryshim e bën krahasimin më të lehtë."
+    }
+  },
+  {
+    "id": "q0-7",
+    "day": 0,
+    "text": {
+      "en": "Must two routes to one flag always behave the same?",
+      "sq": "A sillen gjithmonë njësoj dy rrugë drejt një flamuri?"
+    },
+    "options": {
+      "en": ["Yes", "No, obstacles can differ", "Only if they are long"],
+      "sq": [
+        "Po",
+        "Jo, pengesat mund të ndryshojnë",
+        "Vetëm nëse janë të gjata"
+      ]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "Order matters when obstacles are present.",
+      "sq": "Rendi ka rëndësi kur ka pengesa."
+    }
+  },
+  {
+    "id": "q1-0",
+    "day": 1,
+    "text": {
+      "en": "Energy starts at 5. Collect three times. New value?",
+      "sq": "Energjia nis në 5. Mblidh tri herë. Vlera e re?"
+    },
+    "options": {
+      "en": ["8", "3", "15"],
+      "sq": ["8", "3", "15"]
+    },
+    "answer": 0,
+    "explanation": {
+      "en": "Each collection adds one.",
+      "sq": "Çdo mbledhje shton një."
+    }
+  },
+  {
+    "id": "q1-1",
+    "day": 1,
+    "text": {
+      "en": "At energy 8, is energy ≥ 8 true?",
+      "sq": "Në energji 8, a është energjia ≥ 8 e vërtetë?"
+    },
+    "options": {
+      "en": ["No", "Yes", "Only with a key"],
+      "sq": ["Jo", "Po", "Vetëm me çelës"]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "Greater than or equal includes equality.",
+      "sq": "Më e madhe ose e barabartë përfshin barazinë."
+    }
+  },
+  {
+    "id": "q1-2",
+    "day": 1,
+    "text": {
+      "en": "True AND false equals…",
+      "sq": "E vërtetë AND e gabuar jep…"
+    },
+    "options": {
+      "en": ["True", "False", "Both"],
+      "sq": ["E vërtetë", "E gabuar", "Të dyja"]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "AND requires both conditions to be true.",
+      "sq": "AND kërkon që të dy kushtet të jenë të vërteta."
+    }
+  },
+  {
+    "id": "q1-3",
+    "day": 1,
+    "text": {
+      "en": "False OR true equals…",
+      "sq": "E gabuar OR e vërtetë jep…"
+    },
+    "options": {
+      "en": ["False", "True", "No result"],
+      "sq": ["E gabuar", "E vërtetë", "Pa rezultat"]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "OR needs at least one true condition.",
+      "sq": "OR kërkon të paktën një kusht të vërtetë."
+    }
+  },
+  {
+    "id": "q1-4",
+    "day": 1,
+    "text": {
+      "en": "NOT true equals…",
+      "sq": "NOT e vërtetë jep…"
+    },
+    "options": {
+      "en": ["True", "False", "1"],
+      "sq": ["E vërtetë", "E gabuar", "1"]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "NOT reverses the value.",
+      "sq": "NOT përmbys vlerën."
+    }
+  },
+  {
+    "id": "q1-5",
+    "day": 1,
+    "text": {
+      "en": "What can 1 represent in our logic puzzles?",
+      "sq": "Çfarë mund të përfaqësojë 1 në lojërat logjike?"
+    },
+    "options": {
+      "en": ["An error", "True", "A password"],
+      "sq": ["Gabim", "E vërtetë", "Fjalëkalim"]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "We use 1 for true and 0 for false.",
+      "sq": "Përdorim 1 për të vërtetë dhe 0 për të gabuar."
+    }
+  },
+  {
+    "id": "q1-6",
+    "day": 1,
+    "text": {
+      "en": "True OR true equals…",
+      "sq": "E vërtetë OR e vërtetë jep…"
+    },
+    "options": {
+      "en": ["False", "True", "Only one may be true"],
+      "sq": ["E gabuar", "E vërtetë", "Vetëm njëra mund të jetë e vërtetë"]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "OR also allows both conditions to be true.",
+      "sq": "OR lejon që të dy kushtet të jenë të vërteta."
+    }
+  },
+  {
+    "id": "q1-7",
+    "day": 1,
+    "text": {
+      "en": "What is a variable?",
+      "sq": "Çfarë është ndryshorja?"
+    },
+    "options": {
+      "en": ["A named stored value", "An unchangeable tree", "A quiz answer"],
+      "sq": [
+        "Një vlerë e ruajtur me emër",
+        "Një pemë e pandryshueshme",
+        "Përgjigje kuizi"
+      ]
+    },
+    "answer": 0,
+    "explanation": {
+      "en": "Variables hold values that a program can use or change.",
+      "sq": "Ndryshoret ruajnë vlera që programi përdor ose ndryshon."
+    }
+  },
+  {
+    "id": "q2-0",
+    "day": 2,
+    "text": {
+      "en": "When does ELSE run?",
+      "sq": "Kur ekzekutohet PËRNDRYSHE?"
+    },
+    "options": {
+      "en": ["Always", "When the IF condition is false", "Before IF"],
+      "sq": ["Gjithmonë", "Kur kushti NËSE është i gabuar", "Para NËSE"]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "Only the selected branch runs.",
+      "sq": "Ekzekutohet vetëm dega e zgjedhur."
+    }
+  },
+  {
+    "id": "q2-1",
+    "day": 2,
+    "text": {
+      "en": "IF energy < 8 then collect. Starting at 5, final energy?",
+      "sq": "NËSE energjia < 8, mblidh. Duke nisur në 5, sa bëhet?"
+    },
+    "options": {
+      "en": ["8", "6", "5"],
+      "sq": ["8", "6", "5"]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "An IF does not automatically repeat.",
+      "sq": "NËSE nuk përsëritet automatikisht."
+    }
+  },
+  {
+    "id": "q2-2",
+    "day": 2,
+    "text": {
+      "en": "What does SWITCH compare?",
+      "sq": "Çfarë krahason SWITCH?"
+    },
+    "options": {
+      "en": [
+        "A value with named cases",
+        "Every block at once",
+        "Only true and false"
+      ],
+      "sq": [
+        "Një vlerë me raste të emërtuara",
+        "Të gjithë blloqet njëherësh",
+        "Vetëm të vërtetë dhe të gabuar"
+      ]
+    },
+    "answer": 0,
+    "explanation": {
+      "en": "A case matches the selected value.",
+      "sq": "Rasti përputhet me vlerën e zgjedhur."
+    }
+  },
+  {
+    "id": "q2-3",
+    "day": 2,
+    "text": {
+      "en": "Why include a default case?",
+      "sq": "Pse përfshijmë rastin parazgjedhje?"
+    },
+    "options": {
+      "en": [
+        "To repeat forever",
+        "To handle unmatched values",
+        "To delete other cases"
+      ],
+      "sq": [
+        "Për të përsëritur pafund",
+        "Për vlera që nuk përputhen",
+        "Për të fshirë rastet e tjera"
+      ]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "Default supplies a fallback behavior.",
+      "sq": "Parazgjedhja jep sjellje rezervë."
+    }
+  },
+  {
+    "id": "q2-4",
+    "day": 2,
+    "text": {
+      "en": "Which tests a boundary?",
+      "sq": "Cila provon një kufi?"
+    },
+    "options": {
+      "en": ["Only energy 100", "Energy exactly 8", "Never testing"],
+      "sq": ["Vetëm energjia 100", "Energjia saktësisht 8", "Pa prova"]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "Equality is an important edge case.",
+      "sq": "Barazia është rast kufitar i rëndësishëm."
+    }
+  },
+  {
+    "id": "q2-5",
+    "day": 2,
+    "text": {
+      "en": "How do you read nested conditions?",
+      "sq": "Si lexohen kushtet e ndërthurura?"
+    },
+    "options": {
+      "en": ["Outside inward", "Ignore the outside", "Randomly"],
+      "sq": ["Nga jashtë brenda", "Shpërfill të jashtmin", "Rastësisht"]
+    },
+    "answer": 0,
+    "explanation": {
+      "en": "The outer branch determines whether the inner IF runs.",
+      "sq": "Dega e jashtme përcakton nëse ekzekutohet NËSE i brendshëm."
+    }
+  },
+  {
+    "id": "q2-6",
+    "day": 2,
+    "text": {
+      "en": "Signal is green. Which switch branch runs?",
+      "sq": "Sinjali është i gjelbër. Cila degë ekzekutohet?"
+    },
+    "options": {
+      "en": ["Red", "Green", "All branches"],
+      "sq": ["E kuqe", "E gjelbër", "Të gjitha"]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "Only the matching case is selected.",
+      "sq": "Zgjidhet vetëm rasti që përputhet."
+    }
+  },
+  {
+    "id": "q2-7",
+    "day": 2,
+    "text": {
+      "en": "Which is a decision rather than repetition?",
+      "sq": "Cila është zgjedhje dhe jo përsëritje?"
+    },
+    "options": {
+      "en": ["IF / ELSE", "REPEAT 5", "WHILE"],
+      "sq": ["NËSE / PËRNDRYSHE", "PËRSËRIT 5", "WHILE"]
+    },
+    "answer": 0,
+    "explanation": {
+      "en": "Conditions choose a branch; loops repeat work.",
+      "sq": "Kushtet zgjedhin degë; ciklet përsërisin punën."
+    }
+  },
+  {
+    "id": "q3-0",
+    "day": 3,
+    "text": {
+      "en": "Repeat 3 times {right; down}. Number of moves?",
+      "sq": "Përsërit 3 herë {djathtas; poshtë}. Sa lëvizje?"
+    },
+    "options": {
+      "en": ["3", "5", "6"],
+      "sq": ["3", "5", "6"]
+    },
+    "answer": 2,
+    "explanation": {
+      "en": "Two moves repeated three times make six.",
+      "sq": "Dy lëvizje tri herë bëjnë gjashtë."
+    }
+  },
+  {
+    "id": "q3-1",
+    "day": 3,
+    "text": {
+      "en": "A WHILE condition starts false. How many turns?",
+      "sq": "Kushti WHILE nis i gabuar. Sa herë ekzekutohet?"
+    },
+    "options": {
+      "en": ["0", "1", "Always 3"],
+      "sq": ["0", "1", "Gjithmonë 3"]
+    },
+    "answer": 0,
+    "explanation": {
+      "en": "WHILE checks before entering.",
+      "sq": "WHILE kontrollon para hyrjes."
+    }
+  },
+  {
+    "id": "q3-2",
+    "day": 3,
+    "text": {
+      "en": "A DO / WHILE condition starts false. Minimum turns?",
+      "sq": "Kushti DO / WHILE nis i gabuar. Minimumi i ekzekutimeve?"
+    },
+    "options": {
+      "en": ["0", "1", "Infinite"],
+      "sq": ["0", "1", "Pafund"]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "The body runs before the first check.",
+      "sq": "Trupi ekzekutohet para kontrollit të parë."
+    }
+  },
+  {
+    "id": "q3-3",
+    "day": 3,
+    "text": {
+      "en": "What helps a WHILE loop stop?",
+      "sq": "Çfarë ndihmon një cikël WHILE të ndalet?"
+    },
+    "options": {
+      "en": [
+        "Nothing changes",
+        "A changing value makes the condition false",
+        "More copies of the same loop"
+      ],
+      "sq": [
+        "Asgjë nuk ndryshon",
+        "Një vlerë që ndryshon e bën kushtin të gabuar",
+        "Më shumë kopje të ciklit"
+      ]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "A loop needs a reachable stopping condition.",
+      "sq": "Ciklit i duhet kusht ndalimi i arritshëm."
+    }
+  },
+  {
+    "id": "q3-4",
+    "day": 3,
+    "text": {
+      "en": "Does defining a function run its body?",
+      "sq": "A e ekzekuton trupin përcaktimi i funksionit?"
+    },
+    "options": {
+      "en": ["Yes", "No, calling it does", "Only on Monday"],
+      "sq": ["Po", "Jo, e ekzekuton thirrja", "Vetëm të hënën"]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "Definition stores instructions; a call executes them.",
+      "sq": "Përcaktimi ruan udhëzimet; thirrja i ekzekuton."
+    }
+  },
+  {
+    "id": "q3-5",
+    "day": 3,
+    "text": {
+      "en": "Tool = {right; right}. Call twice. Moves?",
+      "sq": "Mjeti = {djathtas; djathtas}. Thirre dy herë. Sa lëvizje?"
+    },
+    "options": {
+      "en": ["2", "4", "8"],
+      "sq": ["2", "4", "8"]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "Two calls each execute two moves.",
+      "sq": "Dy thirrje ekzekutojnë nga dy lëvizje."
+    }
+  },
+  {
+    "id": "q3-6",
+    "day": 3,
+    "text": {
+      "en": "Why use a reusable function?",
+      "sq": "Pse përdorim funksion të ripërdorshëm?"
+    },
+    "options": {
+      "en": [
+        "To fix shared steps in one place",
+        "To avoid naming things",
+        "To stop all testing"
+      ],
+      "sq": [
+        "Për të korrigjuar hapa të përbashkët në një vend",
+        "Për të shmangur emërtimin",
+        "Për të ndalur provat"
+      ]
+    },
+    "answer": 0,
+    "explanation": {
+      "en": "A shared definition keeps repeated behavior consistent.",
+      "sq": "Përcaktimi i përbashkët i mban përsëritjet të njëjta."
+    }
+  },
+  {
+    "id": "q3-7",
+    "day": 3,
+    "text": {
+      "en": "WHILE energy < 8: move right. Energy never changes. Risk?",
+      "sq": "WHILE energjia < 8: lëviz djathtas. Energjia nuk ndryshon. Rreziku?"
+    },
+    "options": {
+      "en": [
+        "The condition may never become false",
+        "It always runs once",
+        "It collects energy"
+      ],
+      "sq": [
+        "Kushti mund të mos bëhet kurrë i gabuar",
+        "Ekzekutohet gjithmonë një herë",
+        "Mbledh energji"
+      ]
+    },
+    "answer": 0,
+    "explanation": {
+      "en": "Movement does not change energy in this playground.",
+      "sq": "Lëvizja nuk ndryshon energjinë në këtë lojë."
+    }
+  },
+  {
+    "id": "q4-0",
+    "day": 4,
+    "text": {
+      "en": "What should happen before a big build?",
+      "sq": "Çfarë duhet bërë para ndërtimit të madh?"
+    },
+    "options": {
+      "en": ["Plan smaller parts", "Skip testing", "Copy without reading"],
+      "sq": ["Planifiko pjesët e vogla", "Shmang provat", "Kopjo pa lexuar"]
+    },
+    "answer": 0,
+    "explanation": {
+      "en": "Decomposition makes the problem manageable.",
+      "sq": "Ndarja në pjesë e bën problemin të menaxhueshëm."
+    }
+  },
+  {
+    "id": "q4-1",
+    "day": 4,
+    "text": {
+      "en": "Which is useful playtest feedback?",
+      "sq": "Cili është mendim i dobishëm pas provës?"
+    },
+    "options": {
+      "en": [
+        "Bad game",
+        "At energy 8 the gate stayed closed",
+        "I refuse to test"
+      ],
+      "sq": [
+        "Lojë e keqe",
+        "Në energji 8 porta mbeti mbyllur",
+        "Nuk dua ta provoj"
+      ]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "Specific observations can be reproduced.",
+      "sq": "Vëzhgimet e sakta mund të riprovohen."
+    }
+  },
+  {
+    "id": "q4-2",
+    "day": 4,
+    "text": {
+      "en": "An AI answer sounds confident. Is it proof?",
+      "sq": "Përgjigjja e IA-së tingëllon e sigurt. A është provë?"
+    },
+    "options": {
+      "en": ["Yes", "No, test it", "Only when long"],
+      "sq": ["Po", "Jo, provoje", "Vetëm kur është e gjatë"]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "Confidence is not evidence of correctness.",
+      "sq": "Siguria në të shprehur nuk është provë saktësie."
+    }
+  },
+  {
+    "id": "q4-3",
+    "day": 4,
+    "text": {
+      "en": "What should stay out of prompts?",
+      "sq": "Çfarë duhet lënë jashtë kërkesave?"
+    },
+    "options": {
+      "en": [
+        "Imaginary robot names",
+        "Coding goals",
+        "Passwords and home addresses"
+      ],
+      "sq": [
+        "Emrat imagjinarë të robotëve",
+        "Qëllimet e kodimit",
+        "Fjalëkalimet dhe adresat e shtëpisë"
+      ]
+    },
+    "answer": 2,
+    "explanation": {
+      "en": "Keep personal information private.",
+      "sq": "Mbaji private të dhënat personale."
+    }
+  },
+  {
+    "id": "q4-4",
+    "day": 4,
+    "text": {
+      "en": "A helper ignores your rules. What next?",
+      "sq": "Ndihmësi shpërfill rregullat. Çfarë bën?"
+    },
+    "options": {
+      "en": [
+        "Apply anyway",
+        "Identify the missed rule and revise",
+        "Give your password"
+      ],
+      "sq": [
+        "Zbatoje gjithsesi",
+        "Gjej rregullin e humbur dhe përmirësoje",
+        "Jep fjalëkalimin"
+      ]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "Evaluate the answer against your constraints.",
+      "sq": "Vlerëso përgjigjen sipas kufijve të vendosur."
+    }
+  },
+  {
+    "id": "q4-5",
+    "day": 4,
+    "text": {
+      "en": "Which test set is strongest for energy ≥ 8?",
+      "sq": "Cilat prova janë më të mira për energjinë ≥ 8?"
+    },
+    "options": {
+      "en": ["Only 9", "7, 8 and 9", "Only 100"],
+      "sq": ["Vetëm 9", "7, 8 dhe 9", "Vetëm 100"]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "Test below, at and above the boundary.",
+      "sq": "Provo poshtë, në dhe sipër kufirit."
+    }
+  },
+  {
+    "id": "q4-6",
+    "day": 4,
+    "text": {
+      "en": "What is our local tutor?",
+      "sq": "Çfarë është ndihmësi ynë lokal?"
+    },
+    "options": {
+      "en": [
+        "An all-knowing person",
+        "A limited classroom interpreter",
+        "A replacement for testing"
+      ],
+      "sq": [
+        "Një person që di gjithçka",
+        "Interpretues i kufizuar i klasës",
+        "Zëvendësim i provave"
+      ]
+    },
+    "answer": 1,
+    "explanation": {
+      "en": "It supports specific commands and course knowledge.",
+      "sq": "Mbështet komanda të caktuara dhe njohuri të kursit."
+    }
+  },
+  {
+    "id": "q4-7",
+    "day": 4,
+    "text": {
+      "en": "How can you show that a fix worked?",
+      "sq": "Si tregon se korrigjimi funksionoi?"
+    },
+    "options": {
+      "en": [
+        "Repeat the same test and compare",
+        "Stop running the code",
+        "Hide the error"
+      ],
+      "sq": [
+        "Përsërit të njëjtën provë dhe krahaso",
+        "Mos e ekzekuto më kodin",
+        "Fshih gabimin"
+      ]
+    },
+    "answer": 0,
+    "explanation": {
+      "en": "A comparable test provides evidence.",
+      "sq": "Një provë e krahasueshme jep dëshmi."
+    }
+  }
+]

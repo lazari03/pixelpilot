@@ -756,3 +756,402 @@ footer span {
   color: #69785e;
   line-height: 1.6;
 }
+/* Course v2: coding is the primary workspace, lesson panels stay secondary. */
+.course-shell {
+  max-width: 1800px;
+}
+.course-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 0 22px;
+}
+.course-tabs button,
+.challenge-selector button,
+.unit-tabs button {
+  border: 1px solid #dfe7d9;
+  border-radius: 10px;
+  padding: 12px 18px;
+  background: #fffefa;
+  font-weight: 600;
+}
+.course-tabs button.active,
+.challenge-selector button.active,
+.unit-tabs button.active {
+  background: #e5eee0;
+  border-color: #5f8e69;
+  color: #28694a;
+}
+.course-tabs button:nth-child(2) {
+  font-size: 16px;
+}
+.challenge-selector {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+  flex-wrap: wrap;
+}
+.coding-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(260px, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+.coding-primary {
+  border: 2px solid #8cae80;
+  box-shadow: 0 10px 30px #33592c10;
+}
+.coding-title {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.coding-title > span {
+  font-size: 38px;
+  background: #e6eddb;
+  padding: 10px 18px;
+  border-radius: 14px;
+  color: #3f784a;
+}
+.coding-title h2 {
+  font-size: 30px;
+  margin: 8px 0;
+  letter-spacing: -1px;
+}
+.coding-primary .block-workspace {
+  height: 560px;
+}
+.run-button {
+  font-size: 16px;
+  padding: 16px;
+  background: #246f4e;
+}
+.requirements {
+  padding: 12px;
+  border-radius: 8px;
+  background: #f0edf6;
+  font-size: 11px;
+  color: #77618b;
+}
+.live-game .board {
+  position: relative;
+  aspect-ratio: 1;
+  grid-template-columns: repeat(6, 1fr);
+}
+.moving-robot {
+  position: absolute;
+  width: 16.6667%;
+  height: 16.6667%;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  font-size: 32px;
+  transition:
+    left 0.18s ease-in-out,
+    top 0.18s ease-in-out;
+  filter: drop-shadow(0 5px 3px #0003);
+  animation: robot-bob 1.8s ease-in-out infinite;
+}
+.animated-board .tile {
+  font-size: 28px;
+}
+.animated-board .tree {
+  animation: tree-sway 4s ease-in-out infinite;
+  transform-origin: bottom;
+}
+.confetti {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 42px;
+  letter-spacing: 10px;
+  color: #e7ae43;
+  pointer-events: none;
+  animation: confetti 1.5s ease-out infinite;
+}
+.celebrating {
+  animation: success-pulse 1s ease-in-out 2;
+}
+.gate-state {
+  background: #eff3df;
+  padding: 10px;
+  border-radius: 8px;
+}
+.unit-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.unit-tabs button {
+  font-size: 12px;
+  text-align: left;
+  flex: 1;
+}
+.unit-tabs small {
+  display: block;
+  font-size: 10px;
+  margin-top: 6px;
+}
+.lesson-expanded {
+  max-width: none;
+  line-height: 1.9;
+  padding: 30px;
+}
+.lesson-expanded h2 {
+  font-size: 28px;
+}
+.lesson-hero {
+  font-size: 65px;
+  margin: 20px 0;
+  animation: robot-bob 3s ease-in-out infinite;
+}
+.lesson-expanded blockquote,
+.prompt-course blockquote {
+  border-left: 4px solid #9980bd;
+  background: #f1edf7;
+  padding: 18px;
+  margin: 20px 0;
+  color: #6b5685;
+  line-height: 1.9;
+}
+.lesson-expanded .primary {
+  margin-right: 10px;
+}
+.lesson-plan {
+  margin-top: 25px;
+  background: #eef1e3;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 12px;
+}
+.prompt-course {
+  padding: 30px;
+  line-height: 1.9;
+}
+.prompt-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.prompt-fields label {
+  display: block;
+}
+.prompt-fields textarea {
+  min-height: 95px;
+  font-size: 14px;
+  margin-top: 8px;
+}
+.prompt-fields select {
+  width: 100%;
+  margin-top: 8px;
+}
+.check-label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 20px 0;
+}
+.check-label input {
+  accent-color: #287d5c;
+  width: 20px;
+  height: 20px;
+}
+.prompt-course .response {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+}
+.assessment {
+  padding: 30px;
+  line-height: 1.8;
+}
+.assessment fieldset {
+  border: 1px solid #e0e7da;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 22px 0;
+}
+.assessment legend {
+  font-weight: 700;
+  padding: 0 10px;
+}
+.answer {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 8px 0;
+  background: #f3f5ec;
+  cursor: pointer;
+}
+.answer input {
+  accent-color: #327353;
+  width: 18px;
+  height: 18px;
+}
+.correct {
+  background: #e7f4df;
+}
+.incorrect {
+  background: #fff1df;
+}
+.grade {
+  border-top: 1px solid #dfe6d6;
+  padding-top: 20px;
+}
+.leaderboard table {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: left;
+  margin-top: 30px;
+}
+.leaderboard td,
+.leaderboard th {
+  padding: 15px;
+  border-bottom: 1px solid #e2e7d9;
+}
+.leaderboard tbody tr:first-child {
+  background: #f5efd9;
+}
+.extension {
+  margin-top: 24px;
+  color: #747e60;
+  line-height: 1.8;
+}
+.graduate {
+  padding: 20px;
+  background: #e2edda;
+  border-radius: 12px;
+}
+.language-picker {
+  font-size: 11px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.language-picker select {
+  padding: 8px;
+}
+.login .language-picker {
+  margin: 0;
+}
+.course-shell .workspace {
+  grid-template-columns: 220px minmax(0, 1fr);
+}
+.course-shell .day:disabled {
+  opacity: 0.45;
+}
+.course-shell .day small {
+  line-height: 1.6;
+}
+.course-shell .intro h1 {
+  font-size: 34px;
+}
+@keyframes robot-bob {
+  50% {
+    translate: 0 -3px;
+  }
+}
+@keyframes tree-sway {
+  50% {
+    rotate: 2deg;
+  }
+}
+@keyframes confetti {
+  0% {
+    opacity: 0;
+    translate: 0 -20px;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 45px;
+  }
+}
+@keyframes success-pulse {
+  50% {
+    box-shadow: 0 0 0 6px #bed9a480;
+  }
+}
+@media (max-width: 1100px) {
+  .coding-layout {
+    grid-template-columns: minmax(0, 1.5fr) minmax(220px, 1fr);
+  }
+  .course-shell .workspace {
+    grid-template-columns: 170px minmax(0, 1fr);
+  }
+  .coding-title h2 {
+    font-size: 25px;
+  }
+  .coding-primary {
+    padding: 15px;
+  }
+  .coding-primary .block-workspace {
+    height: 480px;
+  }
+}
+@media (max-width: 800px) {
+  .course-shell .workspace {
+    display: block;
+  }
+  .coding-layout {
+    grid-template-columns: 1fr;
+  }
+  .coding-primary .block-workspace {
+    height: 430px;
+  }
+  .prompt-fields {
+    grid-template-columns: 1fr;
+  }
+  .course-shell aside .day strong {
+    display: inline;
+    font-size: 10px;
+  }
+  .course-shell aside .day {
+    max-width: 100%;
+  }
+  .course-shell aside .day-number {
+    min-width: 25px;
+  }
+  .course-shell .intro h1 {
+    font-size: 27px;
+  }
+  .leaderboard td,
+  .leaderboard th {
+    padding: 8px;
+    font-size: 11px;
+  }
+  .live-game .board {
+    max-width: 380px;
+  }
+  .unit-tabs button {
+    flex: auto;
+  }
+  .course-tabs button {
+    padding: 10px;
+    font-size: 12px !important;
+  }
+  .prompt-course {
+    padding: 18px;
+  }
+  .language-picker {
+    font-size: 10px;
+  }
+  .brand {
+    font-size: 19px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

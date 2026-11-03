@@ -1,175 +1,143 @@
 "use client";
 import { useState } from "react";
-import { Sparkles } from "lucide-react";
 import {
-  interpret,
-  type KnowledgeEntry,
+  interpretStructured,
+  type StructuredPrompt,
   type TutorAction,
-  type TutorResult,
 } from "@pixelpilot/local-tutor";
-import type { LearningEvent } from "@/domain/models";
+import { useLocale } from "@/i18n/LocaleProvider";
+import type { CourseRepository } from "@/features/course/repository";
 interface Props {
-  knowledge: KnowledgeEntry[];
   day: number;
-  busy: boolean;
+  learned: boolean;
+  repository: CourseRepository;
+  onSaved: () => Promise<void>;
   onAction: (action: TutorAction) => void;
-  onRecord: (event: LearningEvent) => Promise<void>;
 }
 export default function PromptLab({
-  knowledge,
   day,
-  busy,
+  learned,
+  repository,
+  onSaved,
   onAction,
-  onRecord,
 }: Props) {
-  const [request, setRequest] = useState("Explain OR");
-  const [result, setResult] = useState<TutorResult | null>(null);
-  const [applied, setApplied] = useState(false);
-  const [reflection, setReflection] = useState("");
-  function submit() {
-    const next = interpret(request, knowledge);
-    setResult(next);
-    setApplied(false);
-    setReflection("");
-    if (next.intent !== "privacy")
-      void onRecord({
-        lessonDay: day,
-        intent: next.intent,
-        knowledgeId: next.knowledgeId,
-        actionType: next.action?.type,
-      });
+  const { t, locale } = useLocale();
+  const [ack, setAck] = useState(false),
+    [form, setForm] = useState<StructuredPrompt>({
+      goal: "",
+      context: "",
+      rules: "",
+      format: "",
+    }),
+    [action, setAction] = useState<TutorAction | null>(null),
+    [status, setStatus] = useState(""),
+    [busy, setBusy] = useState(false);
+  async function submit() {
+    setAction(null);
+    if (!learned || !ack) {
+      setStatus(t("promptLocked"));
+      return;
+    }
+    const result = interpretStructured(form, [], locale);
+    if (!result.action) {
+      setStatus(
+        t(result.intent === "privacy" ? "promptPrivacy" : "promptInvalid"),
+      );
+      return;
+    }
+    setBusy(true);
+    try {
+      const accepted = await repository.submitPrompt(day, form);
+      if (accepted) {
+        setAction(result.action);
+        setStatus(t("promptSaved"));
+        await onSaved();
+      } else setStatus(t("promptInvalid"));
+    } catch {
+      setStatus(t("saveError"));
+    } finally {
+      setBusy(false);
+    }
   }
   return (
-    <div className="card ai">
-      <div className="card-heading">
-        <h3>
-          <Sparkles size={20} />
-          Local AI Practice Lab
-        </h3>
-        <span className="tiny-badge purple">ON DEVICE</span>
-      </div>
-      <p className="muted small">
-        A tiny classroom interpreter. No model downloads, API key, or external
-        AI requests.
-      </p>
-      <label>
-        <span className="field-label">
-          <strong>What would you like to try?</strong>
-        </span>
-        <textarea
-          aria-label="Ask the local tutor"
-          value={request}
-          onChange={(e) => {
-            setRequest(e.target.value);
-            setResult(null);
-          }}
-          maxLength={600}
+    <section className="card prompt-course">
+      <h2>✦ {t("promptLesson")}</h2>
+      <p>{t("promptIntro")}</p>
+      <blockquote>{t("promptExample")}</blockquote>
+      <label className="check-label">
+        <input
+          type="checkbox"
+          checked={ack}
+          onChange={(e) => setAck(e.target.checked)}
         />
+        {t("understand")}
       </label>
-      <div className="suggestions">
-        {[
-          "Move right 3 steps",
-          "Set gate to AND",
-          "Explain loops",
-          "Give me a hint",
-        ].map((example) => (
-          <button
-            key={example}
-            onClick={() => {
-              setRequest(example);
-              setResult(null);
+      {!learned && (
+        <p className="feedback">
+          {t("promptLocked")} —{" "}
+          {locale === "sq" ? "Kapitulli 1, mësimi 3" : "Chapter 1, lesson 3"}
+        </p>
+      )}
+      <div className="prompt-fields">
+        {(["goal", "context", "rules"] as const).map((field, i) => (
+          <label key={field}>
+            <span className="eyebrow">
+              0{i + 1} · {t(field)}
+            </span>
+            <textarea
+              aria-label={t(field)}
+              maxLength={600}
+              value={form[field]}
+              onChange={(e) => {
+                setForm({ ...form, [field]: e.target.value });
+                setAction(null);
+              }}
+            />
+          </label>
+        ))}
+        <label>
+          <span className="eyebrow">04 · {t("format")}</span>
+          <select
+            aria-label={t("format")}
+            value={form.format}
+            onChange={(e) => {
+              setForm({ ...form, format: e.target.value });
+              setAction(null);
             }}
           >
-            {example}
-          </button>
-        ))}
+            <option value="">—</option>
+            <option value={locale === "sq" ? "plan veprimi" : "action plan"}>
+              {locale === "sq" ? "Plan veprimi" : "Action plan"}
+            </option>
+          </select>
+        </label>
       </div>
-      <button className="primary full" onClick={submit}>
-        <Sparkles size={16} />
-        Understand my request
+      <p className="small muted">{t("promptHint")}</p>
+      <button className="primary" disabled={busy} onClick={submit}>
+        {t("preview")}
       </button>
-      {result ? (
+      <p role="status">{status}</p>
+      {action && (
         <div className="response">
-          <span className="eyebrow">
-            {result.intent === "action"
-              ? "ACTION PREVIEW"
-              : "LOCAL KNOWLEDGE RESPONSE"}
-          </span>
-          <p style={{ whiteSpace: "pre-line" }} role="status">
-            {result.message}
-          </p>
-          {result.action && (
-            <button
-              className="primary full"
-              disabled={busy || applied}
-              onClick={() => {
-                onAction(result.action!);
-                setApplied(true);
-                void onRecord({
-                  lessonDay: day,
-                  intent: "applied",
-                  actionType: result.action!.type,
-                });
-              }}
-            >
-              {applied ? "Action applied" : "Apply this action"}
-            </button>
-          )}
-          {result.intent === "explain" && (
-            <>
-              <div className="reflection">
-                <button
-                  onClick={() => {
-                    setReflection(
-                      "Explain how this example matches your question. Can you test it?",
-                    );
-                    void onRecord({
-                      lessonDay: day,
-                      intent: "reflection",
-                      knowledgeId: result.knowledgeId,
-                      feedback: "fits",
-                    });
-                  }}
-                >
-                  Fits my question
-                </button>
-                <button
-                  onClick={() => {
-                    setReflection(
-                      "Name what was missing, then make your question more specific.",
-                    );
-                    void onRecord({
-                      lessonDay: day,
-                      intent: "reflection",
-                      knowledgeId: result.knowledgeId,
-                      feedback: "improve",
-                    });
-                  }}
-                >
-                  Needs work
-                </button>
-              </div>
-              <p className="small" role="status">
-                {reflection}
-              </p>
-            </>
-          )}
-        </div>
-      ) : (
-        <div className="response placeholder">
-          <span>✧</span>
-          <p>
-            Ask about a coding idea,
-            <br />
-            or preview one small action.
-          </p>
+          <strong>
+            {action.type === "move"
+              ? `${t("move")} ${t(action.direction)} × ${action.steps}`
+              : action.type === "reset"
+                ? t("reset")
+                : `${t("gate")}: ${action.operator}`}
+          </strong>
+          <button
+            className="primary"
+            onClick={() => {
+              onAction(action);
+              setAction(null);
+            }}
+          >
+            {t("apply")}
+          </button>
         </div>
       )}
-      <p className="privacy">
-        Only supported commands can change the game, after you confirm.
-        Knowledge answers come from the course library. Your raw question is not
-        saved or sent to AI services.
-      </p>
-    </div>
+      <p className="small muted">{t("promptPrivacy")}</p>
+    </section>
   );
 }

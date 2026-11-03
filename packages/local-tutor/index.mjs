@@ -115,3 +115,49 @@ export function interpret(request, knowledge) {
     };
   return clarify();
 }
+export function interpretStructured(prompt, knowledge, locale = "en") {
+  const all = [prompt.goal, prompt.context, prompt.rules, prompt.format];
+  const invalid = { intent: "clarify", message: "structured" };
+  if (all.some((value) => typeof value !== "string" || value.length > 600))
+    return invalid;
+  if (
+    /@|password|fjalëkalim|my name|my address|adresa ime|emri im|\d{7,}/i.test(
+      all.join(" "),
+    )
+  )
+    return { intent: "privacy", message: "privacy" };
+  if (
+    prompt.context.trim().length < 12 ||
+    prompt.rules.trim().length < 12 ||
+    !["action plan", "plan veprimi"].includes(
+      prompt.format.trim().toLowerCase(),
+    )
+  )
+    return invalid;
+  const raw = prompt.goal.trim().toLowerCase();
+  if (
+    !/^(move|go|walk)( the robot)? (right|left|up|down) ([1-9]|10)( steps?)?$/.test(
+      raw,
+    ) &&
+    !/^(lëviz|leviz) (djathtas|majtas|lart|poshtë|poshte) ([1-9]|10)( hapa?)?$/.test(
+      raw,
+    ) &&
+    !/^(reset robot|rifillo robotin)$/.test(raw)
+  )
+    return invalid;
+  if (
+    /do not move|never move|mos lëviz|mos leviz/i.test(prompt.rules) &&
+    /move|go|walk|lëviz|leviz/.test(raw)
+  )
+    return invalid;
+  const canonical = raw
+    .replace(/^(lëviz|leviz) /, "move ")
+    .replace(/djathtas/, "right")
+    .replace(/majtas/, "left")
+    .replace(/lart/, "up")
+    .replace(/poshtë|poshte/, "down")
+    .replace(/ hapa?$/, " steps")
+    .replace(/^rifillo robotin$/, "reset robot")
+    .replace(/^vendos portën në /, "set gate to ");
+  return interpret(canonical, knowledge);
+}

@@ -1,360 +1,395 @@
 "use client";
 import { useState } from "react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
-import {
-  BookOpen,
-  Gamepad2,
-  Sparkles,
-  Trophy,
-  ArrowRight,
-  RotateCcw,
-  Check,
-  Flag,
-  KeyRound,
-  Zap,
-} from "lucide-react";
-import { useAdventure } from "@/hooks/useAdventure";
-import { useLearning } from "@/hooks/useLearning";
-import PromptLab from "./PromptLab";
-import { gateOpens, OBSTACLES } from "@/domain/game";
+import { LanguagePicker, useLocale } from "@/i18n/LocaleProvider";
+import { useCourse } from "@/features/course/useCourse";
 import type { Level } from "@/domain/models";
-
 import { supabase } from "@/lib/supabase";
-
-const Blocks = dynamic(() => import("./Blocks"), {
-  ssr: false,
-  loading: () => <p>Opening your toolbox…</p>,
-});
+import CodingWorkspace from "./CodingWorkspace";
+import PromptLab from "./PromptLab";
+import Assessment from "@/features/assessment/Assessment";
+import type { Ranking } from "@/features/course/types";
+import type { TutorAction } from "@pixelpilot/local-tutor";
+type Tab = "learn" | "build" | "prompt" | "quiz" | "leaderboard";
 export default function Studio() {
-  const {
-    curriculum,
-    curriculumStatus,
-    user,
-    complete,
-    saveStatus,
-    finish,
-    record,
-  } = useLearning();
-  const days = curriculum.lessons;
+  const { locale, t } = useLocale();
+  const { state, error, repository, refresh } = useCourse();
+  const [activityChecks, setActivityChecks] = useState<Record<string, boolean>>(
+    {},
+  );
   const [day, setDay] = useState(0),
-    [level, setLevel] = useState<Level>("Builder"),
-    [tab, setTab] = useState("studio");
-  const {
-    position: pos,
-    energy,
-    setEnergy,
-    hasKey,
-    setHasKey,
-    operator,
-    setOperator,
-    notice,
-    setNotice,
-    running,
-    reset,
-    run,
-    applyAction,
-  } = useAdventure({ day, level, onComplete: finish });
-  const lesson = days[day];
-  function selectDay(n: number) {
-    reset();
-    setDay(n);
-    setNotice(days[n].goal);
+    [level, setLevel] = useState<Level>("Explorer"),
+    [tab, setTab] = useState<Tab>("learn"),
+    [unit, setUnit] = useState(0),
+    [slot, setSlot] = useState(0),
+    [message, setMessage] = useState(""),
+    [ranks, setRanks] = useState<Ranking[]>([]),
+    [rankLoaded, setRankLoaded] = useState(false),
+    [action, setAction] = useState<{ action: TutorAction; id: number } | null>(
+      null,
+    );
+  if (!state || !repository)
+    return (
+      <main className="login-wrap">
+        <section className="card login">
+          <h1>🤖 {t("brand")}</h1>
+          <p role="status">{t(error ? "migration" : "loading")}</p>
+          <button className="primary" onClick={refresh}>
+            {t("continue")}
+          </button>
+          <button
+            onClick={async () => {
+              await supabase?.auth.signOut();
+              window.location.assign("/login");
+            }}
+          >
+            {t("signout")}
+          </button>
+          <LanguagePicker />
+        </section>
+      </main>
+    );
+  const passed = (d: number) =>
+    state.results.some((result) => result.day === d && result.passed);
+  const unlocked = (d: number) =>
+    Array.from({ length: d }, (_, i) => i).every(passed);
+  const chapter = state.chapters[day];
+  const challenges = state.challenges
+    .filter((c) => c.day === day && (day === 5 || c.level === level))
+    .sort((a, b) => a.slot - b.slot);
+  const selected = challenges[slot] ?? challenges[0];
+  const ready =
+    challenges.every((c) => state.marks.includes(c.id)) &&
+    state.prompts.includes(day) &&
+    (day === 5 || chapter.units.every((u) => state.reads.includes(u.id)));
+  async function showLeaderboard() {
+    setTab("leaderboard");
+    setRankLoaded(false);
+    try {
+      setRanks(await repository!.leaderboard());
+      setRankLoaded(true);
+    } catch {
+      setMessage(t("saveError"));
+    }
+  }
+  function chooseDay(next: number) {
+    setDay(next);
+    setUnit(0);
+    setSlot(0);
+    setTab(next === 5 ? "build" : "learn");
+    setAction(null);
+    setMessage("");
+  }
+  async function markRead(id: string) {
+    try {
+      await repository!.read(id);
+      await refresh();
+      setMessage("");
+    } catch {
+      setMessage(t("saveError"));
+    }
   }
   return (
     <div className="app">
       <header>
-        <Link href="/" className="brand">
-          <span className="brand-icon">🤖</span>Creator<span>Lab</span>
-          <sup>PILOT</sup>
+        <Link className="brand" href="/">
+          🤖 <span>{t("brand")}</span>
         </Link>
-        <nav>
-          <button
-            onClick={() => setTab("missions")}
-            className={tab === "missions" ? "active" : ""}
-          >
-            <Flag size={18} />
-            Missions
-          </button>
-          <button
-            onClick={() => setTab("studio")}
-            className={tab === "studio" ? "active" : ""}
-          >
-            <Gamepad2 size={19} />
-            Build Studio
-          </button>
-          <button
-            onClick={() => setTab("notebook")}
-            className={tab === "notebook" ? "active" : ""}
-          >
-            <BookOpen size={18} />
-            Prompt Notebook
-          </button>
-        </nav>
-        <Link className="account" href="/login">
-          {user ? "Classroom account" : "Teacher / student login"}{" "}
-          <ArrowRight size={16} />
-        </Link>
-        {user && (
-          <button
-            onClick={async () => {
-              await supabase?.auth.signOut();
-              window.location.reload();
-            }}
-          >
-            Sign out
-          </button>
-        )}
+        <LanguagePicker />
+        <button
+          className="secondary"
+          onClick={async () => {
+            await supabase?.auth.signOut();
+            window.location.assign("/login");
+          }}
+        >
+          {t("signout")}
+        </button>
       </header>
-      <main>
+      <main className="course-shell">
         <div className="intro">
           <div>
-            <div className="eyebrow">A LITTLE CODE. A LOT OF POSSIBILITY.</div>
-            <h1>
-              Big ideas start with <span>“what if?”</span>
-            </h1>
-            <p>
-              Build an adventure. Test your thinking. Become a thoughtful AI
-              explorer.
-            </p>
+            <div className="eyebrow">PIXELPILOT · {t("course")}</div>
+            <h1>{t("welcome")}</h1>
+            <p>{t("tagline")}</p>
           </div>
           <div className="progress-pill">
-            <Trophy size={22} />
-            <div>
-              <strong>{complete.length} missions completed</strong>
-              <small>Your next discovery is waiting.</small>
-            </div>
+            🏆{" "}
+            {
+              state.results
+                .filter((r) => r.passed && r.day < 5)
+                .map((r) => r.day)
+                .filter((v, i, a) => a.indexOf(v) === i).length
+            }
+            /5 {t("complete")}
           </div>
         </div>
         <div className="workspace">
           <aside>
-            <div className="aside-title">YOUR FIVE-DAY ADVENTURE</div>
-            {days.map((d, i) => (
+            <div className="aside-title">{t("course")}</div>
+            {state.chapters.map((c) => (
               <button
-                key={d.title}
-                className={`day ${day === i ? "selected" : ""}`}
-                onClick={() => selectDay(i)}
+                key={c.day}
+                className={`day ${day === c.day ? "selected" : ""}`}
+                disabled={!unlocked(c.day)}
+                title={!unlocked(c.day) ? t("locked") : ""}
+                onClick={() => chooseDay(c.day)}
               >
                 <span className="day-number">
-                  {complete.some((c) => c.startsWith(`${i}-`)) ? (
-                    <Check size={18} />
-                  ) : (
-                    String(i + 1).padStart(2, "0")
-                  )}
+                  {passed(c.day) ? "✓" : unlocked(c.day) ? c.day + 1 : "🔒"}
                 </span>
                 <span>
-                  <strong>{d.title}</strong>
-                  <small>{d.topic}</small>
+                  <strong>{c.title[locale]}</strong>
+                  <small>{t("minutes")}</small>
                 </span>
-                {day === i && <span className="dot" />}
               </button>
             ))}
-            <div className="challenge">
-              <Sparkles size={24} />
-              <h3>Make it your own.</h3>
-              <p>
-                {level === "Inventor"
-                  ? "Invent a different route. Find two inputs that make your gate behave differently."
-                  : level === "Builder"
-                    ? "Build your own route using movement and repeat blocks."
-                    : "Try five moves right, then five moves down. What could you repeat?"}
-              </p>
-              <span>CREATE · TEST · IMPROVE</span>
-            </div>
-            <p className="curriculum-status">{curriculumStatus}</p>
-            <p className="small muted">{saveStatus}</p>
+            <button
+              className={`day ${day === 5 ? "selected" : ""}`}
+              disabled={!unlocked(5)}
+              onClick={() => chooseDay(5)}
+            >
+              <span>🎓</span>
+              <strong>{t("exam")}</strong>
+            </button>
+            <button className="day" onClick={showLeaderboard}>
+              🏆 {t("leaderboard")}
+            </button>
             <Link className="teacher-link" href="/teacher">
-              Teacher guide ↗
+              {locale === "sq" ? "Udhëzuesi i mësuesit" : "Teacher guide"} ↗
             </Link>
           </aside>
           <section className="main-content">
             <div className="section-heading">
               <div>
-                <span className="eyebrow">DAY {day + 1} / 05</span>
-                <h2>{lesson.title}</h2>
-              </div>
-              <label className="level-label">
-                Your challenge
-                <select
-                  value={level}
-                  onChange={(e) => setLevel(e.target.value as Level)}
-                >
-                  <option>Explorer</option>
-                  <option>Builder</option>
-                  <option>Inventor</option>
-                </select>
-              </label>
-            </div>
-            {tab === "missions" ? (
-              <div className="card lesson">
-                <BookOpen />
-                <h2>Learn it. Build it. Explain it.</h2>
-                <p>{lesson.lesson}</p>
-                <h3>Today’s mission</h3>
-                <p>{lesson.goal}</p>
-                <h3>60-minute classroom plan</h3>
-                <p>
-                  10 min discover · 10 min teacher demonstration · 25 min build
-                  and test · 10 min prompt practice · 5 min explain your
-                  discovery.
-                </p>
-                <button className="primary" onClick={() => setTab("studio")}>
-                  Start building <ArrowRight size={16} />
-                </button>
-              </div>
-            ) : (
-              <>
-                <div className="lesson-strip">
-                  <span>✦</span>
-                  <p>{lesson.lesson}</p>
+                <div className="eyebrow">
+                  {day === 5 ? t("exam") : `${t("day")} ${day + 1} / 5`}
                 </div>
-                <div
-                  className={`panels ${tab === "notebook" ? "notebook" : ""}`}
+                <h2>{day === 5 ? t("exam") : chapter.title[locale]}</h2>
+              </div>
+              {day < 5 && (
+                <label className="level-label">
+                  {t("level")}
+                  <select
+                    value={level}
+                    onChange={(e) => {
+                      setLevel(e.target.value as Level);
+                      setSlot(0);
+                      setAction(null);
+                    }}
+                  >
+                    {(["Explorer", "Builder", "Inventor"] as Level[]).map(
+                      (l) => (
+                        <option value={l} key={l}>
+                          {t(l)}
+                        </option>
+                      ),
+                    )}
+                  </select>
+                </label>
+              )}
+            </div>
+            <nav className="course-tabs">
+              {(day === 5
+                ? ["build", "prompt", "quiz"]
+                : ["learn", "build", "prompt", "quiz"]
+              ).map((key) => (
+                <button
+                  key={key}
+                  className={tab === key ? "active" : ""}
+                  onClick={() => setTab(key as Tab)}
                 >
-                  {tab !== "notebook" && (
-                    <>
-                      <div className="card adventure">
-                        <div className="card-heading">
-                          <h3>
-                            <Gamepad2 size={20} />
-                            Your adventure
-                          </h3>
-                          <span className="tiny-badge">PLAYGROUND</span>
-                        </div>
-                        <p className="muted small">{lesson.goal}</p>
-                        <div className="board" aria-label="Robot game board">
-                          {Array.from({ length: 36 }, (_, i) => {
-                            const x = i % 6,
-                              y = Math.floor(i / 6),
-                              wall = OBSTACLES.some(
-                                ([a, b]) => a === x && b === y,
-                              );
-                            return (
-                              <div
-                                key={i}
-                                className={`tile ${wall ? "tree" : ""} ${x === 5 && y === 5 ? "destination" : ""}`}
-                              >
-                                {pos[0] === x && pos[1] === y ? (
-                                  <span className="bot" aria-label="robot">
-                                    🤖
-                                  </span>
-                                ) : wall ? (
-                                  "🌲"
-                                ) : x === 5 && y === 5 ? (
-                                  "⚑"
-                                ) : x === 5 && y === 4 && day > 0 ? (
-                                  "🚪"
-                                ) : x === 2 && y === 3 ? (
-                                  "✦"
-                                ) : (
-                                  ""
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                        <div className="sensors">
-                          <label>
-                            <Zap size={16} /> Energy
-                            <input
-                              aria-label="Energy"
-                              type="number"
-                              min={0}
-                              max={20}
-                              value={energy}
-                              onChange={(e) =>
-                                setEnergy(Number(e.target.value))
-                              }
-                            />
-                          </label>
-                          <label>
-                            <KeyRound size={16} /> Key
-                            <input
-                              aria-label="Has key"
-                              type="checkbox"
-                              checked={hasKey}
-                              onChange={(e) => setHasKey(e.target.checked)}
-                            />
-                          </label>
-                        </div>
-                        <button className="secondary full" onClick={reset}>
-                          <RotateCcw size={16} />
-                          Reset adventure
-                        </button>
-                        <p className="feedback" role="status">
-                          {notice}
-                        </p>
-                      </div>
-                      <div className="card rules">
-                        <div className="card-heading">
-                          <h3>
-                            <span className="code-icon">⌘</span>Code your route
-                          </h3>
-                          <span className="tiny-badge purple">BLOCKLY</span>
-                        </div>
-                        <p className="muted small">
-                          Drag blocks from the toolbox and connect them.
-                        </p>
-                        <div className={running ? "running" : ""}>
-                          <Blocks onRun={run} />
-                        </div>
-                        {day > 0 && (
-                          <div className="logic">
-                            <label>
-                              Gate condition
-                              <select
-                                aria-label="Gate operator"
-                                value={operator}
-                                onChange={(e) => setOperator(e.target.value)}
-                              >
-                                <option>OR</option>
-                                <option>AND</option>
-                                <option>NOT</option>
-                              </select>
-                            </label>
-                            <code>
-                              {operator === "NOT"
-                                ? "NOT has key"
-                                : `has key ${operator} energy ≥ 8`}
-                            </code>
-                            <p className="small">
-                              Current result:{" "}
-                              <strong>
-                                {gateOpens(hasKey, energy, operator)
-                                  ? "TRUE · 1 · open"
-                                  : "FALSE · 0 · closed"}
-                              </strong>
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    </>
-                  )}
-                  <PromptLab
-                    key={day}
-                    knowledge={curriculum.knowledge}
-                    day={day}
-                    busy={running}
-                    onAction={applyAction}
-                    onRecord={record}
-                  />
+                  {t(key as "build")}
+                </button>
+              ))}
+            </nav>
+            {tab === "learn" && day < 5 && (
+              <section className="card lesson lesson-expanded">
+                <div className="unit-tabs">
+                  {chapter.units.map((u, i) => (
+                    <button
+                      key={u.id}
+                      className={unit === i ? "active" : ""}
+                      onClick={() => setUnit(i)}
+                    >
+                      {state.reads.includes(u.id) ? "✓ " : ""}
+                      {i + 1}. {u.title[locale]} <small>{u.minutes} min</small>
+                    </button>
+                  ))}
+                </div>
+                <div className="lesson-hero">
+                  {["🧭", "⚡", "🚦", "🔁", "🚀"][day]}
+                </div>
+                <div className="eyebrow">
+                  {t("study")} · {chapter.units[unit].minutes} min
+                </div>
+                <h2>{chapter.units[unit].title[locale]}</h2>
+                <p>{chapter.units[unit].body[locale]}</p>
+                <blockquote>{chapter.units[unit].example[locale]}</blockquote>
+                <h3>{t("predict")}</h3>
+                <p>{chapter.units[unit].predict[locale]}</p>
+                <p className="muted">{t("compare")}</p>
+                <div className="lesson-activities">
+                  <h3>{t("practice")}</h3>
+                  {chapter.units[unit].activities.map((activity, index) => (
+                    <label className="check-label" key={index}>
+                      <input
+                        type="checkbox"
+                        checked={
+                          state.reads.includes(chapter.units[unit].id) ||
+                          !!activityChecks[`${chapter.units[unit].id}-${index}`]
+                        }
+                        onChange={(e) =>
+                          setActivityChecks({
+                            ...activityChecks,
+                            [`${chapter.units[unit].id}-${index}`]:
+                              e.target.checked,
+                          })
+                        }
+                      />
+                      {activity[locale]}
+                    </label>
+                  ))}
+                </div>
+                <button
+                  className="primary"
+                  disabled={
+                    !state.reads.includes(chapter.units[unit].id) &&
+                    !chapter.units[unit].activities.every(
+                      (_, i) =>
+                        activityChecks[`${chapter.units[unit].id}-${i}`],
+                    )
+                  }
+                  onClick={async () => {
+                    await markRead(chapter.units[unit].id);
+                  }}
+                >
+                  {state.reads.includes(chapter.units[unit].id)
+                    ? `✓ ${t("complete")}`
+                    : t("read")}
+                </button>
+                <button
+                  className="secondary"
+                  onClick={() =>
+                    unit < 2 ? setUnit(unit + 1) : setTab("build")
+                  }
+                >
+                  {unit < 2 ? t("next") : t("build")} →
+                </button>
+                <div className="lesson-plan">
+                  <strong>60 min</strong> · 25{" "}
+                  {locale === "sq"
+                    ? "mësim dhe ushtrime"
+                    : "learn and guided practice"}{" "}
+                  · 20 {t("build")} · 10 {t("quiz")} · 5{" "}
+                  {locale === "sq" ? "reflektim" : "reflection"}
+                </div>
+              </section>
+            )}
+            {tab === "build" && (
+              <>
+                <div className="challenge-selector">
+                  {challenges.map((c, i) => (
+                    <button
+                      key={c.id}
+                      className={slot === i ? "active" : ""}
+                      onClick={() => {
+                        setSlot(i);
+                        setAction(null);
+                      }}
+                    >
+                      {state.marks.includes(c.id) ? "✓ " : ""}
+                      {day === 5 ? t("examTask") : t("challenge")} {i + 1}
+                    </button>
+                  ))}
+                </div>
+                <CodingWorkspace
+                  key={selected.id}
+                  challenge={selected}
+                  repository={repository}
+                  onSaved={refresh}
+                  tutorAction={action}
+                />
+                <div className="card extension">
+                  <strong>+60 min · {t("optional")}</strong>
+                  <p>{t("extensions")}</p>
+                  <p>{t("reflection")}</p>
                 </div>
               </>
             )}
-            <div className="bottom-bar">
-              <span>💡</span>
-              <p>
-                <strong>Curiosity is your superpower.</strong> Try something.
-                Notice what happens. Change one thing.
-              </p>
-              <span className="bottom-day">DAY {day + 1} OF 5</span>
-            </div>
+            {tab === "prompt" && (
+              <PromptLab
+                key={`${day}-${locale}`}
+                day={day}
+                learned={state.reads.includes("0-2")}
+                repository={repository}
+                onSaved={refresh}
+                onAction={(next) => {
+                  setAction({ action: next, id: Date.now() });
+                  setTab("build");
+                }}
+              />
+            )}
+            {tab === "quiz" && (
+              <Assessment
+                key={`${day}-${level}-${locale}`}
+                day={day}
+                level={day === 5 ? "Builder" : level}
+                ready={ready}
+                repository={repository}
+                onSaved={refresh}
+                onAdvance={() =>
+                  day === 5 ? void showLeaderboard() : chooseDay(day + 1)
+                }
+              />
+            )}
+            {tab === "leaderboard" && (
+              <section className="card leaderboard">
+                <h2>🏆 {t("leaderboard")}</h2>
+                <p>{t("leaderboardHelp")}</p>
+                {!rankLoaded ? (
+                  <p>{t("loading")}</p>
+                ) : !ranks.length ? (
+                  <p>{t("noClass")}</p>
+                ) : (
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>{t("classroom")}</th>
+                        <th>{t("rank")}</th>
+                        <th>{t("nickname")}</th>
+                        <th>{t("points")}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {ranks.map((r, i) => (
+                        <tr key={`${r.classroom}-${r.nickname}`}>
+                          <td>{r.classroom}</td>
+                          <td>
+                            {ranks.filter(
+                              (other, j) =>
+                                j < i && other.classroom === r.classroom,
+                            ).length + 1}
+                          </td>
+                          <td>{r.nickname}</td>
+                          <td>{r.points}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+                {passed(5) && (
+                  <h2 className="graduate">🎓 {t("certificate")}</h2>
+                )}
+              </section>
+            )}
+            <p role="alert">{message}</p>
           </section>
         </div>
       </main>
       <footer>
-        PIXELPILOT · CREATOR LAB{" "}
-        <span>Made for small classrooms and big imaginations.</span>
+        PIXELPILOT · {t("brand")}
+        <span>Shqip / English</span>
       </footer>
     </div>
   );
