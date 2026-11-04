@@ -165,8 +165,40 @@ export default function Blocks({
     const ws = Blockly.inject(host.current, {
       media: "/blockly/",
       toolbox: {
-        kind: "flyoutToolbox",
-        contents: defs.map((def) => ({ kind: "block", type: def.type })),
+        kind: "categoryToolbox",
+        contents: [
+          { name: t("move"), colour: 170, types: ["robot_move"] },
+          {
+            name: t("energy"),
+            colour: 45,
+            types: [
+              "robot_charge",
+              "robot_energy",
+              "robot_key",
+              "robot_signal",
+            ],
+          },
+          {
+            name: t("chooseBlocks"),
+            colour: 215,
+            types: ["robot_if", "robot_switch"],
+          },
+          {
+            name: t("repeat"),
+            colour: 285,
+            types: ["robot_repeat", "robot_while", "robot_do"],
+          },
+          {
+            name: t("shortcuts"),
+            colour: 325,
+            types: ["robot_tool", "robot_call"],
+          },
+        ].map((group) => ({
+          kind: "category",
+          name: group.name,
+          colour: group.colour,
+          contents: group.types.map((type) => ({ kind: "block", type })),
+        })),
       },
       horizontalLayout: window.innerWidth < 800,
       scrollbars: true,

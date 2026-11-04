@@ -27,3 +27,9 @@ The SQL interpreter mirrors the browser interpreter. Tests solve every challenge
 Each of five chapters has three lessons and nine guided activities, plus practical tasks, a structured-prompt exercise and a checkpoint. The hour is a teaching plan, not a delay mechanism. Three difficulty levels change destinations, requirements and code budgets. Quizzes use an 80% threshold; final assessment combines ten questions, two programs and a prompt. The locale is recorded per attempt to keep question and feedback language consistent.
 
 Animations use position transitions and CSS effects; `prefers-reduced-motion` disables them. Language changes rebuild Blockly labels while retaining the current workspace serialization. Switching challenge or leaving the coding screen starts a fresh workspace; programs are currently assessed rather than saved as editable projects.
+
+## Teacher authoring and the flight scene
+
+`features/lessons` contains typed lesson content and a repository for role-scoped RPCs. `class_lessons` stores teacher-only drafts; `class_lesson_publications` stores student-visible snapshots; `class_lesson_marks` stores verified completion per published revision. Save operations use optimistic revisions and class authorization. Publishing validates the lesson format and map, then independently executes the teacher's test program. A teacher cannot publish an unsolved mission simply by setting a client-side flag. The class-specific content never overwrites the default curriculum or exam.
+
+`RocketScene` renders local vector artwork, the map and state-driven effects. `CodingWorkspace` owns cancellable playback, pause/step controls and fullscreen layout. Visual playback and verified assessment use the same typed program result. Teacher preview plays locally without awarding points. The scene remains responsive and honours reduced motion. Class mission scores count a lesson once rather than allowing point farming through repeated publication.

@@ -1,6 +1,6 @@
 import { requireUser } from "@/lib/auth/server";
-import TeacherGuide from "@/components/TeacherGuide";
+import TeacherStudio from "@/components/TeacherStudio";
 export default async function Teacher() {
   await requireUser();
-  return <TeacherGuide />;
+  return <TeacherStudio />;
 }

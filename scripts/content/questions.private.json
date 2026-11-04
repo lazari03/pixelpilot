@@ -117,11 +117,11 @@
     },
     "options": {
       "en": [
-        "The robot’s starting position",
+        "The ship’s starting position",
         "Your home address",
         "Your password"
       ],
-      "sq": ["Vendnisja e robotit", "Adresa e shtëpisë", "Fjalëkalimi"]
+      "sq": ["Vendnisja e anijes", "Adresa e shtëpisë", "Fjalëkalimi"]
     },
     "answer": 0,
     "explanation": {
@@ -403,8 +403,8 @@
     "id": "q2-4",
     "day": 2,
     "text": {
-      "en": "Which tests a boundary?",
-      "sq": "Cila provon një kufi?"
+      "en": "Which test checks the exact number that opens the door?",
+      "sq": "Cila provë kontrollon numrin e saktë që hap derën?"
     },
     "options": {
       "en": ["Only energy 100", "Energy exactly 8", "Never testing"],
@@ -412,16 +412,16 @@
     },
     "answer": 1,
     "explanation": {
-      "en": "Equality is an important edge case.",
-      "sq": "Barazia është rast kufitar i rëndësishëm."
+      "en": "Try exactly 8, not only 7 or 9.",
+      "sq": "Provo saktësisht 8, jo vetëm 7 ose 9."
     }
   },
   {
     "id": "q2-5",
     "day": 2,
     "text": {
-      "en": "How do you read nested conditions?",
-      "sq": "Si lexohen kushtet e ndërthurura?"
+      "en": "One IF is inside another. Which do you check first?",
+      "sq": "Një NËSE është brenda një tjetri. Cilin kontrollon së pari?"
     },
     "options": {
       "en": ["Outside inward", "Ignore the outside", "Randomly"],
@@ -454,8 +454,8 @@
     "id": "q2-7",
     "day": 2,
     "text": {
-      "en": "Which is a decision rather than repetition?",
-      "sq": "Cila është zgjedhje dhe jo përsëritje?"
+      "en": "Which block chooses one thing instead of doing it again?",
+      "sq": "Cili bllok zgjedh një gjë në vend që ta bëjë përsëri?"
     },
     "options": {
       "en": ["IF / ELSE", "REPEAT 5", "WHILE"],
@@ -488,8 +488,8 @@
     "id": "q3-1",
     "day": 3,
     "text": {
-      "en": "A WHILE condition starts false. How many turns?",
-      "sq": "Kushti WHILE nis i gabuar. Sa herë ekzekutohet?"
+      "en": "WHILE checks first. The answer is no. How many times does it run?",
+      "sq": "WHILE kontrollon së pari. Përgjigjja është jo. Sa herë ekzekutohet?"
     },
     "options": {
       "en": ["0", "1", "Always 3"],
@@ -505,8 +505,8 @@
     "id": "q3-2",
     "day": 3,
     "text": {
-      "en": "A DO / WHILE condition starts false. Minimum turns?",
-      "sq": "Kushti DO / WHILE nis i gabuar. Minimumi i ekzekutimeve?"
+      "en": "DO / WHILE does it once before checking. What is the smallest number of runs?",
+      "sq": "DO / WHILE e bën një herë para kontrollit. Cili është numri më i vogël i ekzekutimeve?"
     },
     "options": {
       "en": ["0", "1", "Infinite"],
@@ -522,8 +522,8 @@
     "id": "q3-3",
     "day": 3,
     "text": {
-      "en": "What helps a WHILE loop stop?",
-      "sq": "Çfarë ndihmon një cikël WHILE të ndalet?"
+      "en": "What helps a WHILE block finish?",
+      "sq": "Çfarë e ndihmon një bllok WHILE të përfundojë?"
     },
     "options": {
       "en": [
@@ -547,8 +547,8 @@
     "id": "q3-4",
     "day": 3,
     "text": {
-      "en": "Does defining a function run its body?",
-      "sq": "A e ekzekuton trupin përcaktimi i funksionit?"
+      "en": "You make a shortcut (function). Does making it also run it?",
+      "sq": "Krijon një shkurtore (funksion). A ekzekutohet vetëm nga krijimi?"
     },
     "options": {
       "en": ["Yes", "No, calling it does", "Only on Monday"],
@@ -564,8 +564,8 @@
     "id": "q3-5",
     "day": 3,
     "text": {
-      "en": "Tool = {right; right}. Call twice. Moves?",
-      "sq": "Mjeti = {djathtas; djathtas}. Thirre dy herë. Sa lëvizje?"
+      "en": "Shortcut = {right; right}. Use it twice. How many moves?",
+      "sq": "Shkurtorja = {djathtas; djathtas}. Përdore dy herë. Sa lëvizje?"
     },
     "options": {
       "en": ["2", "4", "8"],
@@ -581,8 +581,8 @@
     "id": "q3-6",
     "day": 3,
     "text": {
-      "en": "Why use a reusable function?",
-      "sq": "Pse përdorim funksion të ripërdorshëm?"
+      "en": "Why use a shortcut (function)?",
+      "sq": "Pse përdorim një shkurtore (funksion)?"
     },
     "options": {
       "en": [
@@ -640,16 +640,16 @@
     },
     "answer": 0,
     "explanation": {
-      "en": "Decomposition makes the problem manageable.",
-      "sq": "Ndarja në pjesë e bën problemin të menaxhueshëm."
+      "en": "Small parts are easier to build and try.",
+      "sq": "Pjesët e vogla ndërtohen dhe provohen më lehtë."
     }
   },
   {
     "id": "q4-1",
     "day": 4,
     "text": {
-      "en": "Which is useful playtest feedback?",
-      "sq": "Cili është mendim i dobishëm pas provës?"
+      "en": "Which comment helps your friend fix the game?",
+      "sq": "Cili koment e ndihmon shokun ta rregullojë lojën?"
     },
     "options": {
       "en": [
@@ -673,8 +673,8 @@
     "id": "q4-2",
     "day": 4,
     "text": {
-      "en": "An AI answer sounds confident. Is it proof?",
-      "sq": "Përgjigjja e IA-së tingëllon e sigurt. A është provë?"
+      "en": "Can you trust a helper’s answer without trying it?",
+      "sq": "A mund t’i besosh përgjigjes së ndihmësit pa e provuar?"
     },
     "options": {
       "en": ["Yes", "No, test it", "Only when long"],
@@ -682,8 +682,8 @@
     },
     "answer": 1,
     "explanation": {
-      "en": "Confidence is not evidence of correctness.",
-      "sq": "Siguria në të shprehur nuk është provë saktësie."
+      "en": "Sounding sure does not mean the answer is right. Try it.",
+      "sq": "Të folurit me siguri nuk do të thotë se përgjigjja është e saktë. Provoje."
     }
   },
   {
@@ -695,12 +695,12 @@
     },
     "options": {
       "en": [
-        "Imaginary robot names",
+        "Imaginary ship names",
         "Coding goals",
         "Passwords and home addresses"
       ],
       "sq": [
-        "Emrat imagjinarë të robotëve",
+        "Emrat imagjinarë të anijeve",
         "Qëllimet e kodimit",
         "Fjalëkalimet dhe adresat e shtëpisë"
       ]
@@ -732,16 +732,16 @@
     },
     "answer": 1,
     "explanation": {
-      "en": "Evaluate the answer against your constraints.",
-      "sq": "Vlerëso përgjigjen sipas kufijve të vendosur."
+      "en": "Check whether the answer follows your rules.",
+      "sq": "Kontrollo nëse përgjigjja ndjek rregullat e tua."
     }
   },
   {
     "id": "q4-5",
     "day": 4,
     "text": {
-      "en": "Which test set is strongest for energy ≥ 8?",
-      "sq": "Cilat prova janë më të mira për energjinë ≥ 8?"
+      "en": "Which numbers should you test for energy 8 or more?",
+      "sq": "Cilët numra duhet të provosh për energjinë 8 e më shumë?"
     },
     "options": {
       "en": ["Only 9", "7, 8 and 9", "Only 100"],
@@ -757,18 +757,18 @@
     "id": "q4-6",
     "day": 4,
     "text": {
-      "en": "What is our local tutor?",
+      "en": "What is our local helper?",
       "sq": "Çfarë është ndihmësi ynë lokal?"
     },
     "options": {
       "en": [
         "An all-knowing person",
-        "A limited classroom interpreter",
+        "A helper that knows a few game commands",
         "A replacement for testing"
       ],
       "sq": [
         "Një person që di gjithçka",
-        "Interpretues i kufizuar i klasës",
+        "Një ndihmës që njeh disa komanda të lojës",
         "Zëvendësim i provave"
       ]
     },

@@ -61,4 +61,12 @@ Import the repository into Vercel, set both public variables, and deploy as Next
 
 After running `setup.sql`, edit and run `supabase/bootstrap-classroom.sql` in the project owner's SQL editor. Supply the emails of existing teacher/student Auth accounts; optionally supply your own owner email for `superadmin`. Leave owner email empty to create no superadmin. The script creates a classroom, assigns its teacher and enrolls the student with a nickname; it can be rerun without duplicating membership. It never changes passwords or grants PostgreSQL superuser access. Existing projects can apply `003_roles.sql` separately before the bootstrap.
 
-Roles are stored in `app_roles`, never in user-editable metadata. Students cannot self-promote. `teacher_classroom_roster(class_id)` provides an authorized roster/progress read for assigned teachers; superadmins can read any classroom. These roles establish database permissions; the current teacher screen is still a teaching guide, not a complete account-management dashboard. Account creation and role assignment remain owner-managed in Supabase.
+Roles are stored in `app_roles`, never in user-editable metadata. Students cannot self-promote. `teacher_classroom_roster(class_id)` provides an authorized roster/progress read for assigned teachers; superadmins can read any classroom. These roles establish database permissions. The teacher studio supports lesson authoring and class mission progress; account creation and role assignment remain owner-managed in Supabase.
+
+## Rocket game and teacher lesson studio
+
+The play area now uses a local SVG rocket scene: turning, engine thrust, power effects, rock impacts and station docking. It has a larger flight screen, pause/resume, single-step, replay, stop, speed and fullscreen controls. Reduced-motion preferences are respected; no external game assets or paid engine are required.
+
+Teachers can create bilingual class lessons at `/teacher`: explain, show an example, three activities and an editable flight map. Copy any starter lesson or create a new one. Drafts are private; publishing requires a verified solution. Published snapshots remain unchanged while a teacher edits the next draft. Students find assigned, published lessons under Class missions. Custom work uses the same bounded interpreter and database grading as the default game.
+
+Apply `004_teacher_lessons.sql` (included in the updated `setup.sql`) and reapply `seed-course.sql` for the simpler starter text. Teacher roles and classroom assignments still come from `bootstrap-classroom.sql`. See [the teacher guide](docs/teacher-guide.md) for the classroom workflow and rollout steps.

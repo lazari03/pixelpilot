@@ -1,4 +1,6 @@
 "use client";
+import { Rocket } from "lucide-react";
+import ClassMissions from "./ClassMissions";
 import { useState } from "react";
 import Link from "next/link";
 import { LanguagePicker, useLocale } from "@/i18n/LocaleProvider";
@@ -10,7 +12,8 @@ import PromptLab from "./PromptLab";
 import Assessment from "@/features/assessment/Assessment";
 import type { Ranking } from "@/features/course/types";
 import type { TutorAction } from "@pixelpilot/local-tutor";
-type Tab = "learn" | "build" | "prompt" | "quiz" | "leaderboard";
+type Tab =
+  "learn" | "build" | "prompt" | "quiz" | "leaderboard" | "classMissions";
 export default function Studio() {
   const { locale, t } = useLocale();
   const { state, error, repository, refresh } = useCourse();
@@ -19,7 +22,7 @@ export default function Studio() {
   );
   const [day, setDay] = useState(0),
     [level, setLevel] = useState<Level>("Explorer"),
-    [tab, setTab] = useState<Tab>("learn"),
+    [tab, setTab] = useState<Tab>("build"),
     [unit, setUnit] = useState(0),
     [slot, setSlot] = useState(0),
     [message, setMessage] = useState(""),
@@ -93,7 +96,7 @@ export default function Studio() {
     <div className="app">
       <header>
         <Link className="brand" href="/">
-          🤖 <span>{t("brand")}</span>
+          <Rocket size={27} /> <span>{t("brand")}</span>
         </Link>
         <LanguagePicker />
         <button
@@ -155,8 +158,15 @@ export default function Studio() {
             <button className="day" onClick={showLeaderboard}>
               🏆 {t("leaderboard")}
             </button>
+            <button
+              className={`day ${tab === "classMissions" ? "selected" : ""}`}
+              onClick={() => setTab("classMissions")}
+            >
+              <Rocket size={17} />
+              {t("myLessons")}
+            </button>
             <Link className="teacher-link" href="/teacher">
-              {locale === "sq" ? "Udhëzuesi i mësuesit" : "Teacher guide"} ↗
+              {t("teacherStudio")} ↗
             </Link>
           </aside>
           <section className="main-content">
@@ -218,7 +228,7 @@ export default function Studio() {
                   ))}
                 </div>
                 <div className="lesson-hero">
-                  {["🧭", "⚡", "🚦", "🔁", "🚀"][day]}
+                  <Rocket size={55} />
                 </div>
                 <div className="eyebrow">
                   {t("study")} · {chapter.units[unit].minutes} min
@@ -341,6 +351,12 @@ export default function Studio() {
                 onAdvance={() =>
                   day === 5 ? void showLeaderboard() : chooseDay(day + 1)
                 }
+              />
+            )}
+            {tab === "classMissions" && (
+              <ClassMissions
+                courseRepository={repository}
+                unlocked={unlocked}
               />
             )}
             {tab === "leaderboard" && (

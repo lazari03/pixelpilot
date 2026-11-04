@@ -10,25 +10,25 @@
         "id": "0-0",
         "minutes": 10,
         "title": {
-          "en": "Instructions in order",
-          "sq": "Udhëzimet me radhë"
+          "en": "Tell the ship what to do",
+          "sq": "Tregoji anijes çfarë të bëjë"
         },
         "body": {
-          "en": "A program is a sequence of instructions. The computer follows the order you give, not the order you intended. Start by predicting a route on paper. Then compare each instruction with the robot’s next square.",
-          "sq": "Një program është një varg udhëzimesh. Kompjuteri ndjek rendin që shkruan, jo atë që mendon. Parashiko fillimisht rrugën në letër. Pastaj krahaso çdo udhëzim me katrorin tjetër të robotit."
+          "en": "Your ship needs clear steps. It will do the first step, then the next one. Put the steps in the right order. First, use your finger to trace a safe way to the station. Then build that way with blocks. A list of steps is called a sequence.",
+          "sq": "Anijes i duhen hapa të qartë. Ajo bën hapin e parë, pastaj tjetrin. Vendosi hapat me radhë. Së pari, trego me gisht një rrugë të lirë drejt stacionit. Pastaj ndërtoje me blloqe. Hapat me radhë quhen varg udhëzimesh."
         },
         "example": {
-          "en": "Right, right, down ends two squares right and one down. Down, right, right reaches the same square only if neither route hits a tree.",
-          "sq": "Djathtas, djathtas, poshtë përfundon dy katrorë djathtas e një poshtë. Poshtë, djathtas, djathtas arrin në të njëjtin vend vetëm nëse rrugët nuk takojnë pemë."
+          "en": "Go right twice, then down once. Which square will the ship reach? What if you go down first?",
+          "sq": "Shko dy herë djathtas, pastaj një herë poshtë. Ku do të arrijë anija? Po nëse shkon së pari poshtë?"
         },
         "predict": {
-          "en": "Can two sequences end in the same place but encounter different obstacles?",
-          "sq": "A mund të arrijnë dy vargje në të njëjtin vend duke hasur pengesa të ndryshme?"
+          "en": "Can you find two safe ways to the station?",
+          "sq": "A mund të gjesh dy rrugë të lira drejt stacionit?"
         },
         "activities": [
           {
-            "en": "Draw two different routes to the same flag. Count moves and mark trees.",
-            "sq": "Vizato dy rrugë drejt të njëjtit flamur. Numëro lëvizjet dhe shëno pemët."
+            "en": "Draw two different routes to the same flag. Count moves and mark rocks.",
+            "sq": "Vizato dy rrugë drejt të njëjtit stacion. Numëro lëvizjet dhe shëno shkëmbinjtë."
           },
           {
             "en": "Write five instructions. Ask a partner to follow them without guessing.",
@@ -44,20 +44,20 @@
         "id": "0-1",
         "minutes": 10,
         "title": {
-          "en": "Events and debugging",
-          "sq": "Ngjarjet dhe korrigjimi"
+          "en": "Spot a wrong turn",
+          "sq": "Gjej kthesën e gabuar"
         },
         "body": {
-          "en": "An event starts an action: pressing Run starts your program. A bug is a difference between what you expected and what happened. Debug by predicting one step, running it, and changing one instruction. A failed test is useful information.",
-          "sq": "Një ngjarje nis një veprim: butoni Ekzekuto nis programin. Gabimi është dallimi mes pritjes dhe rezultatit. Parashiko një hap, ekzekutoje dhe ndrysho një udhëzim. Një provë e pasuksesshme të jep informacion."
+          "en": "Press Run to start the ship. Watch what happens. Did it go where you expected? If not, find the first wrong step. Change just that step and try again. It is fine to get it wrong. Finding and fixing a mistake is called debugging.",
+          "sq": "Shtyp Ekzekuto për të nisur anijen. Shiko çfarë ndodh. A shkoi atje ku mendoje? Nëse jo, gjej hapin e parë të gabuar. Ndrysho vetëm atë hap dhe provo përsëri. Nuk ka problem të gabosh. Gjetja dhe rregullimi i gabimeve quhet korrigjim."
         },
         "example": {
-          "en": "If a tree blocks the second step, keep the first step and change the route before the tree. Restart from the same position to compare fairly.",
-          "sq": "Nëse një pemë bllokon hapin e dytë, ruaj të parin dhe ndrysho rrugën para pemës. Rifillo nga i njëjti vend për një krahasim të drejtë."
+          "en": "You wanted to go right, but the ship went down. Change the down block to right. Run from the start again.",
+          "sq": "Doje të shkoje djathtas, por anija shkoi poshtë. Ndrysho bllokun poshtë në djathtas. Provo sërish nga nisja."
         },
         "predict": {
-          "en": "Why should we change one instruction at a time?",
-          "sq": "Pse duhet të ndryshojmë vetëm një udhëzim çdo herë?"
+          "en": "Which step would you change first?",
+          "sq": "Cilin hap do të ndryshoje të parin?"
         },
         "activities": [
           {
@@ -82,16 +82,16 @@
           "sq": "Kërkesa është një plan"
         },
         "body": {
-          "en": "A helpful prompt includes a goal, context, rules and a response format. A goal says what to do. Context describes the situation. Rules describe limits. Format says how to show the answer. Our local helper understands only supported classroom commands and asks before applying them.",
-          "sq": "Një kërkesë e dobishme ka qëllim, kontekst, rregulla dhe format përgjigjeje. Qëllimi tregon veprimin. Konteksti përshkruan gjendjen. Rregullat japin kufijtë. Formati tregon si duhet përgjigjja. Ndihmësi lokal kupton vetëm komandat e klasës dhe pyet para zbatimit."
+          "en": "When you ask the helper, say what you want and give useful details. Use four boxes: goal, context, rules and answer style. Goal means what to do. Context means where we start. Rules mean what to be careful about. Answer style means how to show the plan. Do not share private information.",
+          "sq": "Kur pyet ndihmësin, thuaj çfarë do dhe jep hollësi të dobishme. Përdor katër kuti: qëllimi, gjendja, rregullat dhe forma e përgjigjes. Qëllimi tregon veprimin. Gjendja tregon ku nisim. Rregullat tregojnë kujdesin. Forma tregon si ta shfaqim planin. Mos ndaj të dhëna private."
         },
         "example": {
-          "en": "Goal: move right 3 steps. Context: start in the top-left square. Rules: avoid trees and preview first. Format: action plan. Compare this with “do it”.",
-          "sq": "Qëllimi: lëviz djathtas 3 hapa. Konteksti: nis nga këndi lart majtas. Rregullat: shmang pemët dhe trego planin fillimisht. Formati: plan veprimi. Krahasoje me “bëje”."
+          "en": "Goal: move right 3 steps. Start: top-left corner. Rule: avoid rocks and show me first. Answer style: action plan.",
+          "sq": "Qëllimi: lëviz djathtas 3 hapa. Nisja: këndi lart majtas. Rregulli: shmang shkëmbinjtë dhe ma trego së pari. Forma: plan veprimi."
         },
         "predict": {
-          "en": "Which information is missing from “help me win”?",
-          "sq": "Çfarë informacioni mungon te “më ndihmo të fitoj”?"
+          "en": "What is missing from “do it for me”?",
+          "sq": "Çfarë mungon te “bëje për mua”?"
         },
         "activities": [
           {
@@ -121,20 +121,20 @@
         "id": "1-0",
         "minutes": 10,
         "title": {
-          "en": "Variables and comparisons",
-          "sq": "Ndryshoret dhe krahasimet"
+          "en": "Remember a number",
+          "sq": "Ruaj një numër"
         },
         "body": {
-          "en": "A variable stores a value that can change. The robot starts with energy 5. Collect energy adds 1. Comparisons such as <, ≥ and = produce true or false. Predict the value after each change before running.",
-          "sq": "Ndryshorja ruan një vlerë që mund të ndryshojë. Roboti nis me energji 5. Mbledhja shton 1. Krahasimet <, ≥ dhe = japin të vërtetë ose të gabuar. Parashiko vlerën pas çdo ndryshimi."
+          "en": "The ship has an energy number. It starts at 5. Collect energy adds 1. The program remembers the number so it can use it later. A saved number with a name is called a variable. We can ask: is energy smaller than 8, or is it 8 or more?",
+          "sq": "Anija ka një numër energjie. Nis në 5. Mblidh energji shton 1. Programi e mban mend numrin për ta përdorur më vonë. Një vlerë e ruajtur me emër quhet ndryshore. Mund të pyesim: energjia është më pak se 8 apo është 8 e më shumë?"
         },
         "example": {
-          "en": "Three collect-energy actions change 5 to 8. At 8, energy ≥ 8 is true and energy < 8 is false.",
-          "sq": "Tri veprime mbledhjeje e ndryshojnë 5 në 8. Në 8, energjia ≥ 8 është e vërtetë dhe energjia < 8 është e gabuar."
+          "en": "Collect three times: 5 becomes 6, then 7, then 8. Now the station has enough energy to open.",
+          "sq": "Mblidh tri herë: 5 bëhet 6, pastaj 7, pastaj 8. Tani ka mjaft energji për të hapur stacionin."
         },
         "predict": {
-          "en": "What happens exactly at the boundary value 8?",
-          "sq": "Çfarë ndodh saktësisht te vlera kufitare 8?"
+          "en": "How many collections would take energy from 6 to 8?",
+          "sq": "Sa mbledhje duhen për ta çuar energjinë nga 6 në 8?"
         },
         "activities": [
           {
@@ -155,20 +155,20 @@
         "id": "1-1",
         "minutes": 10,
         "title": {
-          "en": "Bits and Boolean values",
-          "sq": "Bitët dhe vlerat logjike"
+          "en": "Yes or no",
+          "sq": "Po apo jo"
         },
         "body": {
-          "en": "A bit is either 0 or 1. We can use 1 for true and 0 for false in logic puzzles. These are representations; a bit can also represent other information. A gate condition evaluates to a Boolean value before it chooses an action.",
-          "sq": "Një bit është 0 ose 1. Në lojërat logjike përdorim 1 për të vërtetë dhe 0 për të gabuar. Këto janë paraqitje; bitët mund të përfaqësojnë edhe informacione të tjera. Kushti i portës jep një vlerë logjike para veprimit."
+          "en": "Some questions have only two answers: yes or no. Does the ship have a key? Is the energy ready? In code, we often call yes true and no false. We can write 1 for yes and 0 for no in this game. A single 0 or 1 is called a bit.",
+          "sq": "Disa pyetje kanë vetëm dy përgjigje: po ose jo. A ka çelës anija? A ka mjaft energji? Në kod, po quhet e vërtetë dhe jo quhet e gabuar. Në këtë lojë mund të shkruajmë 1 për po dhe 0 për jo. Një 0 ose 1 quhet bit."
         },
         "example": {
-          "en": "Has key = 1 means the key condition is true. Energy ready = 0 means the robot needs more energy.",
-          "sq": "Ka çelës = 1 tregon se kushti është i vërtetë. Energjia gati = 0 tregon se robotit i duhet më shumë energji."
+          "en": "Has a key: yes, true, 1. Has enough energy: no, false, 0. These are three ways to describe the same answers.",
+          "sq": "Ka çelës: po, e vërtetë, 1. Ka mjaft energji: jo, e gabuar, 0. Janë tri mënyra për të thënë të njëjtat përgjigje."
         },
         "predict": {
-          "en": "Is the number 0 always an error? Explain.",
-          "sq": "A është numri 0 gjithmonë gabim? Shpjego."
+          "en": "Is 0 always a mistake, or can it tell us something useful?",
+          "sq": "A është 0 gjithmonë gabim apo mund të na tregojë diçka të dobishme?"
         },
         "activities": [
           {
@@ -189,20 +189,20 @@
         "id": "1-2",
         "minutes": 5,
         "title": {
-          "en": "AND, OR and NOT",
-          "sq": "AND, OR dhe NOT"
+          "en": "Both, either, the opposite",
+          "sq": "Të dyja, njëra, e kundërta"
         },
         "body": {
-          "en": "AND needs both conditions. OR needs at least one, including when both are true. NOT reverses one condition. Make a truth table with all four key/energy combinations. Testing only the happy path misses important cases.",
-          "sq": "AND kërkon të dy kushtet. OR kërkon të paktën njërin, edhe kur të dy janë të vërtetë. NOT përmbys një kusht. Ndërto tabelën me katër kombinimet çelës/energji. Vetëm rasti i suksesshëm nuk mjafton."
+          "en": "AND means both things must be true. OR means one or both can be true. NOT means the opposite. Try changing the key and energy blocks. Before you run, say whether the gate should open. Then check if you were right.",
+          "sq": "AND do të thotë që të dyja duhet të jenë të vërteta. OR do të thotë se mjafton njëra ose të dyja. NOT do të thotë e kundërta. Ndrysho blloqet e çelësit dhe energjisë. Para provës, thuaj nëse porta duhet të hapet. Pastaj kontrollo."
         },
         "example": {
-          "en": "Key true and energy false: AND is false, OR is true, NOT key is false. Test the opposite combination too.",
-          "sq": "Çelësi i vërtetë dhe energjia e gabuar: AND është e gabuar, OR e vërtetë, NOT çelësi e gabuar. Provo edhe kombinimin e kundërt."
+          "en": "Key yes, energy no: AND says no. OR says yes. NOT key says no. Try swapping yes and no.",
+          "sq": "Çelësi po, energjia jo: AND thotë jo. OR thotë po. NOT çelësi thotë jo. Provo të ndërrosh po dhe jo."
         },
         "predict": {
-          "en": "Which gate opens with no key but enough energy?",
-          "sq": "Cila portë hapet pa çelës por me energji të mjaftueshme?"
+          "en": "What happens when both answers are yes?",
+          "sq": "Çfarë ndodh kur të dyja përgjigjet janë po?"
         },
         "activities": [
           {
@@ -232,20 +232,20 @@
         "id": "2-0",
         "minutes": 10,
         "title": {
-          "en": "Choose with if / else",
-          "sq": "Zgjidh me nëse / përndryshe"
+          "en": "Choose what happens",
+          "sq": "Zgjidh çfarë ndodh"
         },
         "body": {
-          "en": "An IF checks a condition and runs its true branch. ELSE runs the alternative. Only the selected branch runs. Write down a test that makes each branch execute. Conditions can depend on variables rather than being fixed forever.",
-          "sq": "NËSE kontrollon kushtin dhe ekzekuton degën e vërtetë. PËRNDRYSHE ekzekuton alternativën. Ekzekutohet vetëm dega e zgjedhur. Shkruaj prova për të dyja degët. Kushtet mund të varen nga ndryshoret."
+          "en": "Sometimes the ship needs to choose. IF means “if this is true, do this”. ELSE means “otherwise, do this instead”. Only one choice runs. Try a number that makes each choice happen. One IF makes one choice; it does not keep repeating by itself.",
+          "sq": "Ndonjëherë anija duhet të zgjedhë. NËSE do të thotë “nëse kjo është e vërtetë, bëje këtë”. PËRNDRYSHE do të thotë “në rast tjetër, bëje atë”. Ekzekutohet vetëm një zgjedhje. Provo vlera për të dyja. NËSE nuk përsëritet vetë."
         },
         "example": {
-          "en": "If energy < 8, collect energy; else move right. Starting at energy 5 collects once—it does not repeat automatically.",
-          "sq": "Nëse energjia < 8, mblidh energji; përndryshe lëviz djathtas. Me energji 5 mblidhet vetëm një herë—nuk përsëritet vetvetiu."
+          "en": "If energy is below 8, collect once. Otherwise, move right. With energy 5, this makes energy 6—not 8.",
+          "sq": "Nëse energjia është nën 8, mblidh një herë. Përndryshe, lëviz djathtas. Me energji 5, energjia bëhet 6—jo 8."
         },
         "predict": {
-          "en": "How is an IF different from a loop?",
-          "sq": "Si ndryshon një kusht NËSE nga një cikël?"
+          "en": "Which number would make the ship move instead of collect?",
+          "sq": "Cili numër e bën anijen të lëvizë në vend që të mbledhë?"
         },
         "activities": [
           {
@@ -266,20 +266,20 @@
         "id": "2-1",
         "minutes": 10,
         "title": {
-          "en": "Choose a named case",
-          "sq": "Zgjidh një rast të emërtuar"
+          "en": "Choose by colour",
+          "sq": "Zgjidh sipas ngjyrës"
         },
         "body": {
-          "en": "SWITCH chooses a branch matching a value. Here the signal is red or green. The default branch handles other values. A case is useful when one value has several named possibilities. Keep behavior clear and test each case.",
-          "sq": "SWITCH zgjedh degën që përputhet me një vlerë. Sinjali këtu është i kuq ose i gjelbër. Dega parazgjedhje trajton vlerat e tjera. Rastet ndihmojnë kur një vlerë ka disa mundësi të emërtuara. Provo secilin rast."
+          "en": "We can choose what to do by looking at a colour. Green could mean fly. Red could mean wait or collect energy. A switch block picks the matching choice. If nothing matches, it uses the last, backup choice. Try both colours.",
+          "sq": "Mund të zgjedhim çfarë të bëjmë duke parë ngjyrën. E gjelbra mund të thotë fluturo. E kuqja mund të thotë prit ose mblidh energji. Blloku SWITCH zgjedh rastin që përputhet. Nëse asgjë nuk përputhet, përdor zgjedhjen rezervë. Provo të dyja ngjyrat."
         },
         "example": {
-          "en": "Green: move right. Red: collect energy. Default: wait. Changing the signal changes the selected branch.",
-          "sq": "I gjelbër: lëviz djathtas. I kuq: mblidh energji. Parazgjedhja: prit. Ndryshimi i sinjalit ndryshon degën."
+          "en": "Set the signal to green. Put a move in the green space. Change it to red. Does the same move still run?",
+          "sq": "Vendos sinjalin në të gjelbër. Fut një lëvizje te hapësira e gjelbër. Ndryshoje në të kuq. A bëhet ende e njëjta lëvizje?"
         },
         "predict": {
-          "en": "Why should a switch include a default behavior?",
-          "sq": "Pse duhet që zgjedhja sipas rastit të ketë sjellje parazgjedhje?"
+          "en": "What should your ship do when it sees red?",
+          "sq": "Çfarë duhet të bëjë anija kur sheh të kuqen?"
         },
         "activities": [
           {
@@ -300,20 +300,20 @@
         "id": "2-2",
         "minutes": 5,
         "title": {
-          "en": "Nested choices and edge cases",
-          "sq": "Zgjedhjet e ndërthurura dhe kufijtë"
+          "en": "Check the tricky cases",
+          "sq": "Provo rastet e veçanta"
         },
         "body": {
-          "en": "An IF can contain another IF. Read from the outside inward. An edge case is an unusual or boundary input, such as energy exactly 8. Ask for hints, then verify them. The local helper does not know every possible game or question.",
-          "sq": "Një NËSE mund të përmbajë një tjetër. Lexo nga jashtë brenda. Rasti kufitar është një hyrje e veçantë, si energjia saktësisht 8. Kërko ndihmë dhe kontrolloje. Ndihmësi lokal nuk njeh çdo lojë ose pyetje."
+          "en": "A program can work once and still have a mistake. Try it with less energy, just enough energy, and extra energy. Try it without a key too. You can put one IF inside another. Read the outside choice first, then the inside choice.",
+          "sq": "Programi mund të punojë një herë dhe prapë të ketë gabim. Provoje me pak energji, me aq sa duhet dhe me më shumë. Provoje edhe pa çelës. Mund të vendosësh një NËSE brenda një tjetri. Lexo së pari zgjedhjen jashtë, pastaj atë brenda."
         },
         "example": {
-          "en": "If there is a key, check energy; if energy ≥ 8, move. Try no key, low energy, and energy exactly 8.",
-          "sq": "Nëse ka çelës, kontrollo energjinë; nëse energjia ≥ 8, lëviz. Provo pa çelës, me pak energji dhe me energji saktësisht 8."
+          "en": "Try energy 7, 8 and 9. Write “open” or “closed” before each run. Compare your guess with what happens.",
+          "sq": "Provo energjinë 7, 8 dhe 9. Shkruaj “hapur” ose “mbyllur” para çdo prove. Krahaso mendimin me rezultatin."
         },
         "predict": {
-          "en": "Which test could reveal a mistake that the easiest test would miss?",
-          "sq": "Cila provë zbulon një gabim që prova më e lehtë nuk e zbulon?"
+          "en": "Which test would you try if a friend said “it always works”?",
+          "sq": "Cilën provë do të bëje nëse një shok thotë “punon gjithmonë”?"
         },
         "activities": [
           {
@@ -343,20 +343,20 @@
         "id": "3-0",
         "minutes": 10,
         "title": {
-          "en": "Counted repetition",
-          "sq": "Përsëritja me numër"
+          "en": "Do it again",
+          "sq": "Bëje përsëri"
         },
         "body": {
-          "en": "A counted loop runs its body a fixed number of times. Count the actions inside as well as the repetitions. A nested loop multiplies the work. Predict the number of moves before pressing Run. Shorter code should still be understandable.",
-          "sq": "Cikli me numër ekzekuton trupin disa herë të caktuara. Numëro veprimet brenda dhe përsëritjet. Cikli i ndërthurur shumëfishon punën. Parashiko lëvizjet para ekzekutimit. Kodi i shkurtër duhet të mbetet i kuptueshëm."
+          "en": "If the same steps happen again and again, use a repeat block. Tell it how many times to repeat. The steps inside it run each time. Count carefully before you run. A repeated set of steps is called a loop.",
+          "sq": "Kur të njëjtët hapa bëhen përsëri e përsëri, përdor bllokun Përsërit. Thuaji sa herë. Hapat brenda tij bëhen çdo herë. Numëro me kujdes para provës. Një grup hapash që përsëritet quhet cikël."
         },
         "example": {
-          "en": "Repeat 3 times {right; down} makes 6 moves. Repeating right 3 times makes only 3 moves.",
-          "sq": "Përsërit 3 herë {djathtas; poshtë} bën 6 lëvizje. Përsëritja vetëm djathtas 3 herë bën 3 lëvizje."
+          "en": "Repeat 3 times: right, then down. That is 6 moves. Repeat only right 3 times: that is 3 moves.",
+          "sq": "Përsërit 3 herë: djathtas, pastaj poshtë. Janë 6 lëvizje. Përsërit vetëm djathtas 3 herë: janë 3 lëvizje."
         },
         "predict": {
-          "en": "What changes when you move an instruction outside the loop?",
-          "sq": "Çfarë ndryshon kur një udhëzim del jashtë ciklit?"
+          "en": "Can you make the same route with fewer blocks?",
+          "sq": "A mund ta bësh të njëjtën rrugë me më pak blloqe?"
         },
         "activities": [
           {
@@ -377,20 +377,20 @@
         "id": "3-1",
         "minutes": 10,
         "title": {
-          "en": "While versus do / while",
-          "sq": "While kundrejt do / while"
+          "en": "When should we stop?",
+          "sq": "Kur duhet të ndalojmë?"
         },
         "body": {
-          "en": "WHILE checks before each turn and may run zero times. DO / WHILE runs once, then checks. Something inside the loop must make the condition eventually false. Our interpreter stops safely if a loop cannot finish.",
-          "sq": "WHILE kontrollon para çdo rrotullimi dhe mund të mos ekzekutohet fare. DO / WHILE ekzekutohet një herë dhe pastaj kontrollon. Diçka brenda duhet ta bëjë kushtin të gabuar. Interpretuesi ndalon në mënyrë të sigurt nëse cikli nuk mbaron."
+          "en": "WHILE means “keep doing this while the answer is yes”. It checks first. DO / WHILE does it once, then checks. Give the loop a way to stop. For example, collecting energy changes the number until there is enough. If it cannot stop, our game stops it safely.",
+          "sq": "WHILE do të thotë “vazhdo sa kohë përgjigjja është po”. Kontrollon së pari. DO / WHILE e bën një herë dhe pastaj kontrollon. Jepi ciklit një mënyrë për të ndaluar. Mbledhja e energjisë e ndryshon numrin derisa të mjaftojë. Nëse nuk ndalon, loja e ndal në mënyrë të sigurt."
         },
         "example": {
-          "en": "While energy < 8, collect energy. Starting at 8 runs zero times. Do collect energy while energy < 8 starts with one collection, even at 8.",
-          "sq": "Për sa kohë energjia < 8, mblidh energji. Duke nisur në 8, nuk ekzekutohet. Bëj mbledhje për sa kohë energjia < 8 mbledh një herë edhe kur nis në 8."
+          "en": "While energy is below 8, collect. Starting at 8 does nothing. Do collect, then check: starting at 8 still collects once.",
+          "sq": "Sa kohë energjia është nën 8, mblidh. Duke nisur në 8, nuk bën gjë. Bëj mbledhje, pastaj kontrollo: duke nisur në 8, mbledh një herë."
         },
         "predict": {
-          "en": "Which variable changes so the loop can stop?",
-          "sq": "Cila ndryshore ndryshon që cikli të ndalet?"
+          "en": "What changes inside your loop so it can stop?",
+          "sq": "Çfarë ndryshon brenda ciklit që ai të mund të ndalet?"
         },
         "activities": [
           {
@@ -411,20 +411,20 @@
         "id": "3-2",
         "minutes": 5,
         "title": {
-          "en": "Name a reusable tool",
-          "sq": "Emërto një mjet të ripërdorshëm"
+          "en": "Make your own shortcut",
+          "sq": "Krijo një shkurtore"
         },
         "body": {
-          "en": "A function packages a sequence under a name. Defining a tool does not run it; calling it does. This playground has one reusable tool. Keep it small, call it in more than one place, and test whether it assumes a particular starting position.",
-          "sq": "Funksioni paketon një varg me emër. Përcaktimi nuk e ekzekuton; thirrja e ekzekuton. Loja ka një mjet të ripërdorshëm. Mbaje të vogël, thirre në vende të ndryshme dhe provo nëse varet nga vendnisja."
+          "en": "You can give a group of steps a name. Then use the name instead of building all the steps again. This is called a function. Making the shortcut does not run it. You must use the shortcut block to make it happen.",
+          "sq": "Mund t’i japësh emër një grupi hapash. Pastaj përdor emrin në vend që t’i ndërtosh sërish. Kjo quhet funksion. Krijimi i shkurtores nuk e ekzekuton. Duhet të përdorësh bllokun e shkurtores që hapat të bëhen."
         },
         "example": {
-          "en": "Define tool {right; right}. Run tool twice moves four squares. Changing the tool changes both calls.",
-          "sq": "Përcakto mjetin {djathtas; djathtas}. Përdorimi dy herë lëviz katër katrorë. Ndryshimi i mjetit ndryshon të dyja thirrjet."
+          "en": "Make a shortcut with two right moves. Use it twice. The ship moves right four times. Change the shortcut and try again.",
+          "sq": "Krijo një shkurtore me dy lëvizje djathtas. Përdore dy herë. Anija shkon djathtas katër herë. Ndrysho shkurtoren dhe provo sërish."
         },
         "predict": {
-          "en": "Why is a named tool useful when you fix a repeated mistake?",
-          "sq": "Pse ndihmon një mjet me emër kur korrigjon një gabim të përsëritur?"
+          "en": "How does a shortcut help you fix the same mistake in two places?",
+          "sq": "Si të ndihmon shkurtorja të rregullosh të njëjtin gabim në dy vende?"
         },
         "activities": [
           {
@@ -454,20 +454,20 @@
         "id": "4-0",
         "minutes": 10,
         "title": {
-          "en": "Design your rescue",
-          "sq": "Projekto shpëtimin"
+          "en": "Plan a small adventure",
+          "sq": "Planifiko një aventurë të vogël"
         },
         "body": {
-          "en": "Plan an adventure before coding: start, obstacles, choices and destination. Break the problem into smaller tools. Choose a loop for repeated work and a condition for a decision. A good design is one you can explain.",
-          "sq": "Planifiko aventurën para kodimit: nisjen, pengesat, zgjedhjet dhe mbërritjen. Ndaje problemin në mjete më të vogla. Zgjidh cikël për përsëritje dhe kusht për vendime. Projektimi i mirë shpjegohet qartë."
+          "en": "Before building, draw a start, some rocks and a station. Find the parts that repeat. Find one place where the ship must choose. Turn your drawing into small groups of steps. Explain the plan to a friend before you press Run.",
+          "sq": "Para ndërtimit, vizato nisjen, disa shkëmbinj dhe stacionin. Gjej pjesët që përsëriten. Gjej një vend ku anija duhet të zgjedhë. Ktheje vizatimin në grupe të vogla hapash. Shpjegoja planin shokut para provës."
         },
         "example": {
-          "en": "Sketch a path, circle a repeated section and underline a decision. Turn the sketch into blocks, then compare the behavior.",
-          "sq": "Vizato rrugën, rretho pjesën e përsëritur dhe nënvizo vendimin. Ktheje në blloqe dhe krahaso sjelljen."
+          "en": "Circle the repeated part of your route. Put it in a repeat block or a shortcut. Test that small part first.",
+          "sq": "Rretho pjesën e rrugës që përsëritet. Vendose në një bllok Përsërit ose në një shkurtore. Provo së pari atë pjesë të vogël."
         },
         "predict": {
-          "en": "Which part of your design could become a reusable function?",
-          "sq": "Cila pjesë e projektit mund të bëhet funksion i ripërdorshëm?"
+          "en": "Which part can you test before the whole adventure?",
+          "sq": "Cilën pjesë mund ta provosh para gjithë aventurës?"
         },
         "activities": [
           {
@@ -488,20 +488,20 @@
         "id": "4-1",
         "minutes": 10,
         "title": {
-          "en": "Test with a partner",
-          "sq": "Provo me një shok"
+          "en": "Let a friend try",
+          "sq": "Lëre një shok ta provojë"
         },
         "body": {
-          "en": "A playtester tries inputs the creator did not expect. Test a normal case, a boundary case and a failure case. Explain what happened without blaming the player. Improve one thing and repeat the test fairly.",
-          "sq": "Testuesi provon hyrje që krijuesi nuk i priste. Provo rast normal, kufitar dhe të pasuksesshëm. Shpjego rezultatin pa fajësuar lojtarin. Përmirëso një gjë dhe përsërit provën drejt."
+          "en": "Ask a friend to try your program. Let them choose a number you did not think of. Tell them what you expected. Watch together. If something goes wrong, change one thing and try the same test again. A mistake is a chance to make the game better.",
+          "sq": "Kërkoji një shoku ta provojë programin. Lëre të zgjedhë një numër që ti nuk e mendove. Thuaji çfarë prisje. Shikojeni bashkë. Nëse diçka shkon gabim, ndrysho një gjë dhe bëj sërish të njëjtën provë. Gabimi është mundësi për ta përmirësuar lojën."
         },
         "example": {
-          "en": "Try energy 7, 8 and 9. Ask your partner to predict the result before each run. Record which expectation was wrong.",
-          "sq": "Provo energjinë 7, 8 dhe 9. Kërkoji shokut të parashikojë rezultatin para çdo prove. Shëno cila pritje ishte e gabuar."
+          "en": "Try energy 7, 8 and 9. Did the station open each time you expected? Write down one change you made.",
+          "sq": "Provo energjinë 7, 8 dhe 9. A u hap stacioni kur e prisje? Shkruaj një ndryshim që bëre."
         },
         "predict": {
-          "en": "What evidence shows your change fixed the problem?",
-          "sq": "Çfarë prove tregon se ndryshimi yt e rregulloi problemin?"
+          "en": "What did your friend find that you did not notice?",
+          "sq": "Çfarë gjeti shoku që ti nuk e vure re?"
         },
         "activities": [
           {
@@ -522,20 +522,20 @@
         "id": "4-2",
         "minutes": 5,
         "title": {
-          "en": "Use AI thoughtfully",
-          "sq": "Përdor IA-në me mendim kritik"
+          "en": "Check the helper's advice",
+          "sq": "Kontrollo këshillën e ndihmësit"
         },
         "body": {
-          "en": "AI suggestions are starting points, not proof. Check the goal, constraints and result. Do not share personal information. Our local helper is a limited interpreter, not a person or an all-knowing assistant. You are responsible for testing your program.",
-          "sq": "Sugjerimet e IA-së janë pikënisje, jo prova. Kontrollo qëllimin, kufijtë dhe rezultatin. Mos ndaj të dhëna personale. Ndihmësi lokal është interpretues i kufizuar, jo person apo ndihmës që di gjithçka. Ti duhet ta provosh programin."
+          "en": "The helper can suggest a step, but you must check it. Did it follow your rules? Is the route safe? Never share a password or home address. This helper knows only a few classroom actions. Ask your teacher when you are unsure.",
+          "sq": "Ndihmësi mund të sugjerojë një hap, por ti duhet ta kontrollosh. A ndoqi rregullat? A është rruga e lirë? Mos ndaj kurrë fjalëkalimin ose adresën e shtëpisë. Ndihmësi njeh vetëm disa veprime të klasës. Pyet mësuesin kur nuk je i sigurt."
         },
         "example": {
-          "en": "If an answer ignores “give a hint, not the solution”, identify the missed rule. Ask a clearer question and check again.",
-          "sq": "Nëse përgjigjja shpërfill “jep ndihmë, jo zgjidhjen”, gjej rregullin e humbur. Pyet më qartë dhe kontrollo sërish."
+          "en": "If you asked for a plan first, do not run it straight away. Read it, check it, then choose whether to apply it.",
+          "sq": "Nëse kërkove planin së pari, mos e ekzekuto menjëherë. Lexoje, kontrolloje dhe pastaj vendos nëse do ta zbatosh."
         },
         "predict": {
-          "en": "When should you ask your teacher instead of trusting the helper?",
-          "sq": "Kur duhet të pyesësh mësuesin në vend që t’i besosh ndihmësit?"
+          "en": "What would you check before trusting a new suggestion?",
+          "sq": "Çfarë do të kontrolloje para se t’i besoje një sugjerimi të ri?"
         },
         "activities": [
           {

@@ -407,3 +407,177 @@ describe("teacher and student bootstrap", () => {
     ).rejects.toThrow();
   });
 });
+
+describe("teacher lesson authoring and publication", () => {
+  const content = {
+    title: { en: "A short space trip", sq: "Një udhëtim i shkurtër" },
+    body: {
+      en: "Tell the ship how to reach the station.",
+      sq: "Tregoji anijes si të arrijë te stacioni.",
+    },
+    example: { en: "Move right two times.", sq: "Lëviz djathtas dy herë." },
+    activities: [
+      { en: "Find the station.", sq: "Gjej stacionin." },
+      { en: "Trace the way.", sq: "Trego rrugën." },
+      { en: "Try your blocks.", sq: "Provo blloqet." },
+    ],
+    mission: {
+      goal: [2, 0],
+      walls: [[1, 1]],
+      required: ["move"],
+      maxNodes: 20,
+      gate: false,
+      energy: 5,
+      signal: "green",
+      theme: "nebula",
+    },
+  };
+  const program = {
+    body: [
+      { type: "move", direction: "right" },
+      { type: "move", direction: "right" },
+    ],
+    tool: [],
+  };
+  const literal = (value: unknown) =>
+    `'${JSON.stringify(value).replaceAll("'", "''")}'::jsonb`;
+  let lessonId: string, classId: string;
+  it("allows assigned teachers to save drafts without exposing them to pupils", async () => {
+    classId = (
+      await db.query<{ id: string }>(
+        "select id from classrooms where name='PixelPilot - Class 1'",
+      )
+    ).rows[0].id;
+    const saved = await asStudent(
+      studentA,
+      `select teacher_save_lesson(null,'${classId}',0,${literal(content)},null,false,null) as lesson`,
+    );
+    lessonId = (saved.rows[0] as { lesson: { id: string } }).lesson.id;
+    expect(
+      (await asStudent(studentB, "select * from class_lesson_publications"))
+        .rows,
+    ).toHaveLength(0);
+    await expect(
+      asStudent(studentB, "select * from class_lessons"),
+    ).rejects.toThrow();
+    await expect(
+      asStudent(
+        studentB,
+        `select teacher_save_lesson(null,'${classId}',0,${literal(content)},null,false,null)`,
+      ),
+    ).rejects.toThrow();
+    await expect(
+      asStudent(
+        studentA,
+        `select teacher_save_lesson(null,'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',0,${literal(content)},null,false,null)`,
+      ),
+    ).rejects.toThrow();
+  });
+  it("requires a verified solution before publishing and serves only the published snapshot", async () => {
+    await expect(
+      asStudent(
+        studentA,
+        `select teacher_save_lesson('${lessonId}','${classId}',0,${literal(content)},1,true,'{"body":[],"tool":[]}')`,
+      ),
+    ).rejects.toThrow();
+    await asStudent(
+      studentA,
+      `select teacher_save_lesson('${lessonId}','${classId}',0,${literal(content)},1,true,${literal(program)})`,
+    );
+    const edited = {
+      ...content,
+      title: { en: "Unpublished change", sq: "Ndryshim i papublikuar" },
+    };
+    await asStudent(
+      studentA,
+      `select teacher_save_lesson('${lessonId}','${classId}',0,${literal(edited)},2,false,null)`,
+    );
+    expect(
+      (
+        await asStudent(
+          studentB,
+          "select content->'title'->>'en' as title,revision from class_lesson_publications",
+        )
+      ).rows,
+    ).toEqual([{ title: content.title.en, revision: 2 }]);
+    await expect(
+      asStudent(
+        studentA,
+        `select teacher_save_lesson('${lessonId}','${classId}',0,${literal(content)},1,false,null)`,
+      ),
+    ).rejects.toThrow();
+  });
+  it("grades custom flights for enrolled pupils and limits lesson progress to teachers", async () => {
+    expect(
+      (
+        await asStudent(
+          studentB,
+          `select class_submit_program('${lessonId}',2,${literal(program)}) as accepted`,
+        )
+      ).rows,
+    ).toEqual([{ accepted: true }]);
+    await expect(
+      asStudent(
+        studentB,
+        `select class_submit_program('${lessonId}',1,${literal(program)})`,
+      ),
+    ).rejects.toThrow();
+    await expect(
+      asStudent(studentB, `select teacher_lesson_progress('${lessonId}')`),
+    ).rejects.toThrow();
+    expect(
+      (
+        await asStudent(
+          studentA,
+          `select * from teacher_lesson_progress('${lessonId}')`,
+        )
+      ).rows,
+    ).toEqual([{ nickname: "Robot One", completed: true }]);
+    await expect(
+      asStudent(
+        studentB,
+        `insert into class_lesson_marks values('${studentB}','${lessonId}',3)`,
+      ),
+    ).rejects.toThrow();
+  });
+  it("rejects blocked maps and malformed content, and safely unpublishes drafts", async () => {
+    const invalid = {
+      ...content,
+      mission: {
+        ...content.mission,
+        walls: [
+          [1, 0],
+          [0, 1],
+        ],
+      },
+    };
+    await expect(
+      asStudent(
+        studentA,
+        `select teacher_save_lesson(null,'${classId}',0,${literal(invalid)},null,false,null)`,
+      ),
+    ).rejects.toThrow();
+    const missing = { ...content, activities: undefined };
+    await expect(
+      asStudent(
+        studentA,
+        `select teacher_save_lesson(null,'${classId}',0,${literal(missing)},null,false,null)`,
+      ),
+    ).rejects.toThrow();
+    await expect(
+      asStudent(studentA, `select teacher_delete_draft('${lessonId}')`),
+    ).rejects.toThrow();
+    await asStudent(studentA, `select teacher_unpublish_lesson('${lessonId}')`);
+    expect(
+      (await asStudent(studentB, "select * from class_lesson_publications"))
+        .rows,
+    ).toHaveLength(0);
+    await expect(
+      asStudent(
+        studentB,
+        `select class_submit_program('${lessonId}',2,${literal(program)})`,
+      ),
+    ).rejects.toThrow();
+    await asStudent(studentA, `select teacher_delete_draft('${lessonId}')`);
+  });
+});
