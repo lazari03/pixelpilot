@@ -581,3 +581,46 @@ describe("teacher lesson authoring and publication", () => {
     await asStudent(studentA, `select teacher_delete_draft('${lessonId}')`);
   });
 });
+
+describe("additional teacher accounts", () => {
+  it("adds both teachers repeatably without changing student membership or demoting owners", async () => {
+    const first = "44444444-4444-4444-4444-444444444444",
+      second = "55555555-5555-5555-5555-555555555555";
+    await db.exec(
+      `insert into auth.users(id,email) values ('${first}','extra-one@class.test'),('${second}','extra-two@class.test')`,
+    );
+    const script = readFileSync("supabase/add-teachers.sql", "utf8")
+      .replaceAll("esterlelci@yahoo.com", "extra-one@class.test")
+      .replaceAll("suisashehi08@gmail.com", "extra-two@class.test");
+    const before = (
+      await db.query("select count(*)::int as count from class_members")
+    ).rows;
+    await expect(
+      db.exec(script.replaceAll("extra-two@class.test", "missing@class.test")),
+    ).rejects.toThrow();
+    await db.exec("rollback");
+    expect(
+      (await db.query(`select * from app_roles where user_id='${first}'`)).rows,
+    ).toHaveLength(0);
+    await db.exec(script);
+    await db.exec(script);
+    for (const user of [first, second])
+      expect(
+        (await asStudent(user, "select current_app_role() as role")).rows,
+      ).toEqual([{ role: "teacher" }]);
+    const assignments = await db.query(
+      `select user_id from class_teachers where user_id in ('${first}','${second}')`,
+    );
+    expect(assignments.rows).toHaveLength(2);
+    expect(
+      (await db.query("select count(*)::int as count from class_members")).rows,
+    ).toEqual(before);
+    await db.exec(
+      `update app_roles set role='superadmin' where user_id='${first}'`,
+    );
+    await db.exec(script);
+    expect(
+      (await asStudent(first, "select current_app_role() as role")).rows,
+    ).toEqual([{ role: "superadmin" }]);
+  });
+});
